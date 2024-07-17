@@ -1,7 +1,56 @@
+.Home{
+    min-width: 100%;
+    min-height: 100vh;
+}
+.Home img{
+    width: 100%;
+}
 .Navbar{
+    padding: 1vw;
     background-color: #4274EA;
     border-radius: 50px;
-    height: 10vh;
-    margin: 2vw 10vw 0 10vw;
+    height: 8vh;
+    position:absolute;
+    top: 3vw;
+    left: 10vw;
     width: 80vw;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.Navbar h1{
+    margin: 0 0 0 1vw;
+}
+.Navbar ul{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
+.Navbar li{
+    list-style: none;
+    padding: 1rem;
+    align-items: center;
+}
+.Navbar li:hover{
+    cursor: pointer;
+    background-color: white;
+    border-radius: 25px;
+    color: #4274EA;
+    transition: .8s;
+}
+#login-btn{
+    background-color: white;
+    color: #4274EA;
+    font-weight: bold;
+    border-radius: 50px;
+    border: white 1px solid;
+}
+#login-btn:hover{
+    cursor: pointer;
+    background-color: #4274EA;
+    color: white;
+    transition: .8s;
 }
