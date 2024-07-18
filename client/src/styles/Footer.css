@@ -1,0 +1,13 @@
+.Footer{
+    width: 100%;
+    height: 30vh;
+    background-color: #4274EA;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Footer h1{
+    margin: 0;
+}

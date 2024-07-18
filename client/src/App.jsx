@@ -1,9 +1,11 @@
 import './App.css'
-import Navbar from './assets/Navbar'
+import LandingPage from './assets/LandingPage'
+import Footer from './assets/Footer'
 function App() {
   return (
     <>
-      <Navbar></Navbar>
+      <LandingPage></LandingPage>
+      <Footer></Footer>
     </>
   )
 }

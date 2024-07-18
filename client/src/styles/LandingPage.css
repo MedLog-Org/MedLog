@@ -1,0 +1,38 @@
+.Home{
+    min-width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+.Home img{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.Home button{
+    background-color: #3E70E6;
+    border: #3E70E6 1px solid;
+    border-radius: 50px; 
+    position:absolute;
+    top: 30vw;
+    left: 9vw;
+    min-width:10vw;
+    height: 7vh;
+    color: white;
+    font-weight: bold;
+    padding: 0 1rem 0 1rem;
+    font-size: 100%;
+}
+.Home button:hover{
+    background-color: #E9F9FF;
+    color: #3E70E6;
+    transition: 0.5s;
+}
+@media only screen and (max-width: 600px) {
+    .Home button{
+        height: 4vh;
+        font-size: 60%;
+        padding: 0 0.5rem 0 0.5rem;
+    }
+}
