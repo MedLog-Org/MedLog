@@ -1,14 +1,14 @@
 .Home{
-    min-width: 100%;
-    min-height: 100vh;
+    width: 100%;
     margin: 0;
     padding: 0;
-    background-color: black;
+    background-color: #E9F9FF;
 }
 .Home img{
     width: 100%;
     margin: 0;
     padding: 0;
+    display: block;
 }
 .Home button{
     background-color: #3E70E6;
