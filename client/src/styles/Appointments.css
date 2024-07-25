@@ -1,0 +1,118 @@
+.appointments {
+    margin: 0;
+    padding: 0; /* Ensuring no default padding is applied */
+}
+
+.title {
+    margin-bottom: 0.4rem;
+    padding: 0;
+    text-align: left;
+    color: #4274EA;
+    margin-left: 25rem;
+    font-size: 1.5rem; /* Ensures the title stands out */
+    font-weight: bold; /* Adds emphasis to the title */
+}
+
+.box {
+    margin: 13vw 0 2vw 0;
+}
+
+.grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap; /* Ensures cards wrap in smaller screens */
+    gap: 1rem; /* Adds space between cards */
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    padding: 0.2rem;
+    margin: 0.5rem;
+    background-color:white; /* Light background for distinction */
+    border-radius: 0.5rem; /* Slightly rounded corners for the card */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-0.5rem); /* Adds a lift effect on hover */
+}
+
+.card img {
+    width: 8rem;
+    margin: 0.2rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 65px;
+}
+
+.card img:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+}
+
+.card a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #4274EA;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease; /* More focused transition */
+}
+
+.card a:hover {
+    color: #225eec;
+    transform: scale(1.03);
+}
+
+/* Responsive Design Enhancements */
+@media (max-width: 768px) {
+    .title {
+        margin-left: 2rem; /* Adjust title margin for smaller screens */
+        font-size: 1.2rem; /* Slightly smaller font size for mobile */
+        text-align: center; /* Center the title for better alignment */
+    }
+
+    .grid {
+        flex-direction: column; /* Stack cards vertically */
+        gap: 0.5rem; /* Adjust gap for smaller screens */
+    }
+
+    .box {
+        margin: 8vw 0 2vw 0; /* Adjust vertical spacing */
+    }
+
+    .card {
+        padding: 1rem; /* Larger padding for touch devices */
+        margin: 0.5rem 0; /* Vertical margin for stacked layout */
+    }
+
+    .card img {
+        width: 6rem; /* Smaller images for mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 1rem; /* Even smaller font size for very small screens */
+    }
+
+    .grid {
+        flex-direction: column;
+        gap: 0.25rem; /* Reduce gap further for smallest devices */
+    }
+
+    .card {
+        padding: 0.8rem;
+    }
+
+    .card img {
+        width: 5rem; /* Smallest image size for smallest screens */
+    }
+}
