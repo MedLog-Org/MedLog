@@ -11,10 +11,41 @@
     align-items: center;
 }
 .login-card{
-    border-radius: 50px;
+    border-radius: 25px;
+    padding: 2vw;
     width: 35vw;
-    height: 40vh;
+    min-height: 25vh;
     background-color: white;
-    position: absolute;
-    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+.cross{
+    display: flex;
+    justify-content: right;
+}
+.cross img{
+    width: 20px;
+}
+.cross img:hover{
+    cursor: pointer;
+}
+.login-card input{
+    margin: 1vw 0 1vw 0;
+    padding: 1vw;
+    border: black 1px solid;
+    border-radius: 5px;
+}
+.login-card button{
+    margin: 1vw 0 1vw 0;
+    padding: 1vw;
+    border: #E9F9FF 1px solid;
+    border-radius: 20px;
+    background-color:#4274EA;
+    color: white
+}
+.login-card button:hover{
+    cursor: pointer;
+    background-color: #E1F7FF;
+    color: #4274EA;
+    transition: 0.8;
 }
