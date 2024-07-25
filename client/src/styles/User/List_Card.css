@@ -1,0 +1,36 @@
+.user-appointment{
+    margin: 3vw 0 0 3vw;
+    display: flex;
+    justify-content: left;
+    background-color: #E0F6FF;
+    border-radius: 20px;
+}
+.user-appointment img{
+    width: 15vw;
+}
+.doc-data{
+    margin-left: 1vw;
+}
+.doc-data p{
+    margin: 10px;
+    font-size: 1rem;
+}
+@media only screen and (max-width: 600px) {
+    .user-appointment{
+        margin: 3vw 8vw 3vw 8vw;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+    }
+    .user-appointment img{
+        width: 15vw;
+        margin-right: 5vw;
+    }
+    .doc-data{
+        margin: 2vw;
+    }
+    .doc-data p{
+        margin: 5px;
+        font-size: 0.5rem;
+    }
+}

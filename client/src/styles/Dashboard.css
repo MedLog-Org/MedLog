@@ -1,0 +1,69 @@
+.Dashboard{
+    width: 100%;
+    background-color: #E0F6FF;
+    display: flex;
+    justify-content: center;
+}
+.Board{
+    width: 70vw;
+    padding: 3vw;
+    border-radius: 25px;
+    margin: 15% 0 5% 0;
+    height: auto;
+    background-color: #F5FFFF;
+}
+.user{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2vw;
+}
+.user img{
+    width: 15vw;
+}
+.user-data{
+    margin-left: 1vw;
+}
+.user-data p{
+    margin: 10px;
+    font-size: 1.5rem;
+}
+.Board ul{
+    margin: 3vw 0 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
+.Board li{
+    list-style: none;
+    color: #4274EA;
+    padding: 1vw;
+    margin: 0;
+}
+.Board li:hover{
+    background-color: #4274EA;
+    color: #E0F6FF;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: 0.5;
+}
+
+@media only screen and (max-width: 600px) {
+    .Board{
+        border-radius: 0;
+        width: 80%;
+    }
+    .user img{
+        width: 25vw;
+    }
+    .user-data p{
+        margin: 5px;
+        font-size: 0.8rem;
+    }
+    .Board ul{
+        justify-content: center;
+    }
+    .Board li{
+        font-size: 80%;
+        padding: 2vw;
+    }
+}

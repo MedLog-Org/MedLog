@@ -1,0 +1,46 @@
+.Record{
+    background-color: #E0F6FF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20vw;
+    padding: 1vw;
+    margin: 2vw 3vw 2vw 3vw;
+}
+.Record img{
+    width: 15vw;
+}
+.Record p{
+    margin: 0.5vw;
+    text-align: center;
+
+}
+.Record button{
+    background-color: #4274EA;
+    color: #E0F6FF;
+    border: #4274EA 1px solid;
+    border-radius: 5px;
+    padding: 0.5vw;
+}
+.Record button:hover{
+    background-color: #E0F6FF;
+    color: #4274EA;
+}
+@media only screen and (max-width: 900px) {
+    .Record p{
+        font-size: 70%;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .Record{
+        width: 25vw;
+        padding: 2vw;
+    }
+    .Record p{
+        font-size: 70%;
+    }
+    .Record button{
+        border-radius: 5px;
+        padding: 0.8vw;
+    }
+}

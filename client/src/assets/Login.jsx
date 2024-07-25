@@ -8,9 +8,7 @@ function Login(){
                 <input type="email" placeholder='Email' required />
                 <input type="password" placeholder='Password' required />
                 <button>Login/Sign in</button>
-                
                 <div className="or"> <hr /><p>Or</p><hr /> </div>
-
                 <div className="google">
                     <img src="/google.png" alt=""/>
                     <p>Login with Google</p>

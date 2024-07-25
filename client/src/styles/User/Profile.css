@@ -1,0 +1,48 @@
+.profile{
+    display: flex;
+    flex-direction: column;
+
+}
+.profile input{
+    width: 35%;
+    margin: 1vw 0 0 1vw;
+    padding: 0.8vw;
+    border: black 1px solid;
+    border-radius: 5px;
+}
+.profile button{
+    margin: 1vw 0 0 1vw;
+    padding: 0.5vw;
+    width: 10%;
+    background:#4274EA;
+    border: #4274EA 1px solid;
+    border-radius: 10px;
+    color: #E0F6FF;
+}
+.profile button:hover{
+    cursor: pointer;
+    background:#E0F6FF;
+    color:#4274EA;
+}
+@media only screen and (max-width: 600px) {
+    .profile{
+        justify-content: center;
+        align-items: center;
+    }
+    .profile input{
+        width: 80%;
+        margin: 2vw 0 0 2vw;
+        padding: 0.8vw;
+        border: black 1px solid;
+        border-radius: 0px;
+    }
+    .profile button{
+        margin: 2vw 0 0 0;
+        padding: 1vw;
+        width: 20%;
+        background:#4274EA;
+        border: #4274EA 1px solid;
+        border-radius: 10px;
+        color: #E0F6FF;
+    }
+}
