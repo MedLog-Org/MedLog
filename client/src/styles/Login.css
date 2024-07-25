@@ -1,0 +1,20 @@
+.Login{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #E9F9FF;
+    background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url('Login.png');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-card{
+    border-radius: 50px;
+    width: 35vw;
+    height: 40vh;
+    background-color: white;
+    position: absolute;
+    margin: auto;
+}

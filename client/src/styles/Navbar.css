@@ -4,7 +4,7 @@
     border-radius: 50px;
     height: 8vh;
     position:absolute;
-    top: 3vw;
+    top: 2.5vw;
     left: 10vw;
     width: 80vw;
     color: white;
@@ -15,6 +15,7 @@
 }
 .Navbar h1{
     margin: 0 0 0 1vw;
+    font-size: 2vw;
 }
 .Navbar ul{
     margin: 0;
@@ -24,28 +25,35 @@
 }
 .Navbar li{
     list-style: none;
-    padding: 1rem;
     align-items: center;
     border-radius: 50px;
 }
-.Navbar li:hover{
+.Navbar a{
+    color: white;
+    text-decoration: none;
+    padding: 1vw;
+    font-size: 1.5vw;
+}
+.Navbar a:hover{
     cursor: pointer;
     background-color: white;
     border-radius: 25px;
     color: #4274EA;
     transition: .8s;
 }
-#login-btn{
-    background-color: white;
-    margin-left: 1vw;
-    color: #4274EA;
-    font-weight: bold;
+#btn{
+    background:white;
     border-radius: 50px;
-    border: white 1px solid;
+    color: #4274EA;
+    margin-left: 10px;
+    border:white 1px solid;
 }
-#login-btn:hover{
-    cursor: pointer;
+#btn:hover{
     background-color: #4274EA;
     color: white;
-    transition: .8s;
+}
+@media only screen and (max-width: 600px) {
+    .Navbar{
+        border-radius: 10px;
+    }
 }
