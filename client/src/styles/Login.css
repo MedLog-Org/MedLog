@@ -14,7 +14,7 @@
     border-radius: 25px;
     padding: 2vw;
     width: 35vw;
-    min-height: 25vh;
+    min-height: 40vh;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -38,7 +38,7 @@
 .login-card button{
     margin: 1vw 0 1vw 0;
     padding: 1vw;
-    border: #E9F9FF 1px solid;
+    border: #4274EA 1px solid;
     border-radius: 20px;
     background-color:#4274EA;
     color: white
@@ -48,4 +48,48 @@
     background-color: #E1F7FF;
     color: #4274EA;
     transition: 0.8;
+}
+.or{
+    display: flex;
+    justify-content: left;
+}
+.or p{
+    margin: 0;
+}
+.or hr{
+    width: 40%;
+    height: 1%;
+}
+.google{
+    display: flex;
+    justify-content: center;
+    margin: 2vw 0 2vw 0;
+    padding: 0.8vw;
+    border: #4274EA 1px solid;
+    border-radius: 20px;
+    background-color:#4274EA;
+    color: white
+}
+.google:hover{
+    cursor: pointer;
+    background-color: #E1F7FF;
+    color: #4274EA;
+    transition: 0.8;
+}
+.google img{
+    width: 20px;
+    margin: 0 1vw 0 1vw;
+}
+.google p{
+    margin: 0;
+    font-weight:lighter;
+}
+@media only screen and (max-width: 700px) {
+    .login-card{
+        width: 70%;
+        padding: 5vw;
+    }
+    .google{
+        margin: 3vw 0 3vw 0;
+    }
 }
