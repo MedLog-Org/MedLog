@@ -1,8 +1,10 @@
 import '../styles/Login.css'
+import Navbar from './Navbar';
 import {Link} from 'react-router-dom'
 function Login(){
     return(
         <div className="Login">
+            <Navbar></Navbar>
             <div className="login-card">
                 <div className="cross"><Link to={'/'}><img src="/cross.png"/></Link></div>
                 <input type="email" placeholder='Email' required />

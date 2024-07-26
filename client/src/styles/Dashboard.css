@@ -51,6 +51,7 @@
     .Board{
         border-radius: 0;
         width: 80%;
+        margin-top: 25vw;
     }
     .user img{
         width: 25vw;

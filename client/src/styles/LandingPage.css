@@ -4,7 +4,7 @@
     padding: 0;
     background-color: #E9F9FF;
 }
-.Home img{
+#bg{
     width: 100%;
     margin: 0;
     padding: 0;
@@ -34,5 +34,9 @@
         height: 4vh;
         font-size: 60%;
         padding: 0 0.5rem 0 0.5rem;
+        top: 45vw;
+    }
+    #bg{
+        margin: 10vw 0 0 0;
     }
 }

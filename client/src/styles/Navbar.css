@@ -25,13 +25,15 @@
 }
 .Navbar li{
     list-style: none;
-    align-items: center;
     border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .Navbar a{
     color: white;
     text-decoration: none;
-    padding: 1vw;
+    padding:1vw 2vw 1vw 2vw;
     font-size: 1.5vw;
 }
 .Navbar a:hover{
@@ -52,8 +54,53 @@
     background-color: #4274EA;
     color: white;
 }
+
+.toggle{
+    display: none;
+}
+.head{
+    margin: 0 3vw 0 3vw;
+    width: 90vw;
+    position: absolute;
+    top: 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.head h1{
+    margin: 0;
+    padding: 0;
+    font-size: 200%;
+    color: #4274EA;
+}
+.head img{
+    width: 20px;
+}
 @media only screen and (max-width: 600px) {
     .Navbar{
-        display: none;
+        flex-direction: column;
+        background: none;
+        background-color: #E9F9FF;
+    }
+    .Navbar h1{
+        color: #4274EA;
+        font-size: 150%;
+        margin: 0 0 2vw 0;
+    }
+    .Navbar ul{
+        background-color: #4274EA;
+        width: 80vw;
+        padding: 1.5vw;
+        justify-content: center;
+        border-radius: 20px;
+    }
+    .Navbar li{
+        padding: 0.5vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .Navbar a{
+        font-size: 60%;
     }
 }
