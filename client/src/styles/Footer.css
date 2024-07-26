@@ -6,35 +6,42 @@
 
 .footer-container {
     display: flex;
+    flex-wrap: wrap; /* Allows wrapping for smaller screens */
     justify-content: space-around;
     align-items: flex-start;
-    max-width: 75vw; 
+    max-width: 90vw; /* Slightly more flexible for smaller screens */
     margin: 0 auto;
     padding: 1.25rem;
 }
 
-.footer-left {
+.footer-left, .footer-middle {
     flex: 1;
+    min-width: 200px; /* Minimum width to ensure proper stacking */
+    margin-bottom: 1.25rem; /* Add space between rows on small screens */
 }
 
 .footer-middle {
     flex: 2;
     display: flex;
+    flex-wrap: wrap; /* Allows sections to wrap for better responsiveness */
     justify-content: space-between;
 }
 
 .footer-section {
     flex: 1;
+    min-width: 150px; /* Ensure sections stack nicely */
+    margin-bottom: 1rem; /* Add space between sections on small screens */
 }
 
 .footer-section h3 {
     margin-bottom: 0.625rem; 
-    font-size: 1.2em;
+    font-size: 1.2rem;
 }
 
 .footer-section ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
 }
 
 .footer-section ul li {
@@ -44,41 +51,109 @@
 .footer-section ul li a {
     color: white;
     text-decoration: none;
+    transition: color 0.3s ease-in-out; /* Smooth color transition */
 }
 
 .footer-section ul li a:hover {
     text-decoration: underline;
+    color: #ffcc00; /* Example hover color change */
 }
 
 .footer-section p {
     margin: 0.3125rem 0; 
 }
 
-.footer-section p a{
+.footer-section p a {
     text-decoration: none;
-    color: white; 
+    color: white;
+    transition: color 0.3s ease-in-out; /* Smooth color transition */
+}
+
+.footer-section p a:hover {
+    color: #ffcc00; /* Example hover color change */
 }
 
 .footer-bottom {
     display: flex;
+    flex-wrap: wrap; /* Allows content to wrap on small screens */
     justify-content: space-between;
     align-items: center;
     padding: 0.625rem 1.25rem; 
     border-top: 0.0625rem solid #ccc; 
-    max-width: 75vw; 
+    max-width: 90vw; /* Flexible max width */
     margin: 0 auto;
 }
 
 .footer-bottom p {
     margin: 0;
+    flex: 1; /* Ensures equal space distribution */
+    text-align: center; /* Center align for better mobile look */
 }
 
 .footer-bottom a {
     color: white;
     text-decoration: none;
     margin: 0 0.625rem; 
+    transition: color 0.3s ease-in-out; /* Smooth color transition */
 }
 
 .footer-bottom a:hover {
     text-decoration: underline;
+    color: #ffcc00; /* Example hover color change */
+}
+
+/* Responsive Media Queries */
+
+@media (max-width: 1024px) {
+    .footer-container {
+        max-width: 95vw; /* Adjust container width */
+        justify-content: center; /* Center align for tablet view */
+    }
+    .footer-middle {
+        flex-direction: column; /* Stack sections vertically */
+        align-items: center; /* Center items for tablet view */
+    }
+    .footer-bottom p {
+        text-align: center; /* Center align for tablet view */
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column; /* Stack all items vertically */
+        align-items: center; /* Center align for mobile view */
+    }
+    .footer-section {
+        min-width: 100%; /* Full width for sections */
+        text-align: center; /* Center text for mobile */
+    }
+    .footer-bottom {
+        flex-direction: column; /* Stack items in footer bottom */
+        align-items: center;
+    }
+    .footer-bottom p {
+        margin-bottom: 0.625rem; /* Add space between items */
+    }
+    .footer-bottom a {
+        margin: 0 0.3125rem; /* Adjust margin for better spacing */
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-container {
+        max-width: 100vw; /* Utilize full screen width */
+        padding: 1rem; /* Adjust padding for smaller screens */
+    }
+    .footer-section {
+        margin-bottom: 0.625rem; /* Add space between sections */
+    }
+    .footer-section h3 {
+        font-size: 1.1rem; /* Adjust heading size */
+    }
+    .footer-bottom {
+        padding: 0.5rem; /* Reduce padding for smaller screens */
+    }
+    .footer-bottom a {
+        margin: 0 0.25rem; /* Further adjust spacing */
+    }
 }
