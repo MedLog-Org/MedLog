@@ -1,11 +1,10 @@
-import '../styles/Dashboard.css'
-import Navbar from '../assets/Navbar'
-import Profile from './User/Profile';
-import List from './User/List';
-import Records from './User/Records';
-import Footer from '../assets/Footer'
+import '../../styles/Dashboard.css'
+import Navbar from '../Navbar'
+import Profile from './Profile';
+import Card_List from './Card_List'
+import Footer from '../Footer'
 import { useState } from 'react';
-function Dashboard(){
+function Doc(){
     const [selectedComponent, setSelectedComponent] = useState('Profile');
 
     const handleClick = (component) => {
@@ -17,9 +16,7 @@ function Dashboard(){
         case 'Profile':
           return <Profile />;
         case 'Appointments':
-          return <List />;
-        case 'Records':
-          return <Records />;
+          return <Card_List />;
         default:
           return <Profile/>;
       }
@@ -31,26 +28,24 @@ function Dashboard(){
         <div className="Dashboard"> 
             <div className="Board">
                 <div className="user">
-                    <img src="/BlueSkull.png" alt="" />
+                    <img src="/doc.png" alt="" />
                     <div className="user-data">
-                        <p>Name: Sumit Kumar</p>
-                        <p>Email: sumit.bio21@iitg.ac.in</p>
-                        <p>Sex: Male</p>
-                        <p>Data of Birth: 01/01/2000</p>
-                        <p>Blood Group: B+</p>
+                        <p>Name: Dr. Vansh Gupta</p>
+                        <p>Email: v.vansh@iitg.ac.in</p>
+                        <p>Phone: 1234567890</p>
+                        <p>Speciality: Dentist</p>
                     </div>
                 </div>
                 <hr />
                 <ul>
                 <li onClick={() => handleClick('Profile')}>Profile</li>
                 <li onClick={() => handleClick('Appointments')}>Appointments</li>
-                <li onClick={() => handleClick('Records')}>Medical Records</li>
                 </ul>
                 {renderSelectedComponent()}
             </div>
         </div>
-        <Footer></Footer>
+        {/* <Footer></Footer> */}
         </>
     )
 }
-export default Dashboard;
+export default Doc;

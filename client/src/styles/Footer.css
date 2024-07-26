@@ -47,7 +47,9 @@
 .footer-section ul li {
     margin-bottom: 0.3125rem; 
 }
-
+.title{
+    text-align: center;
+}
 .footer-section ul li a {
     color: white;
     text-decoration: none;
@@ -137,6 +139,9 @@
     .footer-bottom a {
         margin: 0 0.3125rem; /* Adjust margin for better spacing */
     }
+    .footer-left{
+        text-align: center;
+    }
 }
 
 @media (max-width: 480px) {
@@ -155,5 +160,8 @@
     }
     .footer-bottom a {
         margin: 0 0.25rem; /* Further adjust spacing */
+    }
+    .footer-left{
+        text-align: center;
     }
 }
