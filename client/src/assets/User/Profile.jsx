@@ -9,6 +9,6 @@ function Profile(){
             <input type="text" placeholder='Blood Group'/>
             <button>Save</button>
         </div>
-    )
+    );
 }
 export default Profile;

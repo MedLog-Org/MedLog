@@ -6,7 +6,7 @@
 .title {
     margin-bottom: 0.4rem;
     padding: 0;
-    text-align: left;
+    text-align: center;
     color: #4274EA;
     margin-left: 25rem;
     font-size: 1.5rem; /* Ensures the title stands out */
@@ -80,21 +80,24 @@
     }
 
     .grid {
-        flex-direction: column; /* Stack cards vertically */
+        display: flex;
+        flex-wrap: wrap; /* Enable wrapping of items */
+        justify-content: space-around; /* Distribute space evenly */
         gap: 0.5rem; /* Adjust gap for smaller screens */
     }
 
-    .box {
-        margin: 8vw 0 2vw 0; /* Adjust vertical spacing */
-    }
-
     .card {
+        flex: 0 0 calc(50% - 0.5rem); /* Ensure two cards per row with spacing */
+        box-sizing: border-box; /* Include padding and border in width calculation */
         padding: 1rem; /* Larger padding for touch devices */
-        margin: 0.5rem 0; /* Vertical margin for stacked layout */
+        margin: 0.25rem 0; /* Vertical margin for stacked layout */
+        background-color: white; /* Add background color for distinction */
+        border-radius: 0.5rem; /* Add slight rounding for aesthetics */
     }
 
     .card img {
         width: 6rem; /* Smaller images for mobile */
+        height: auto; /* Maintain aspect ratio */
     }
 }
 
@@ -104,15 +107,24 @@
     }
 
     .grid {
-        flex-direction: column;
+        display: flex;
+        flex-wrap: wrap; /* Enable wrapping of items */
+        justify-content: space-around; /* Distribute space evenly */
         gap: 0.25rem; /* Reduce gap further for smallest devices */
     }
 
     .card {
-        padding: 0.8rem;
+        flex: 0 0 calc(50% - 0.25rem); /* Ensure two cards per row with spacing */
+        box-sizing: border-box; /* Include padding and border in width calculation */
+        padding: 0.8rem; /* Reduced padding for smaller screens */
+        margin: 0.2rem 0; /* Reduce vertical margin */
+        background-color: white; /* Add background color for distinction */
+        border-radius: 0.5rem; /* Add slight rounding for aesthetics */
     }
 
     .card img {
         width: 5rem; /* Smallest image size for smallest screens */
+        height: auto; /* Maintain aspect ratio */
     }
 }
+
