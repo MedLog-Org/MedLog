@@ -4,11 +4,11 @@
 }
 
 .title {
-    margin-bottom: 0.4rem;
+    /* margin-bottom: 0.4rem; */
     padding: 0;
-    text-align: left;
+    text-align: center;
     color: #4274EA;
-    margin-left: 25rem;
+    /* margin-left: 25rem; */
     font-size: 1.5rem; /* Ensures the title stands out */
     font-weight: bold; /* Adds emphasis to the title */
 }
