@@ -4,6 +4,7 @@
 }
 
 
+
 .profile input,
 .profile select { 
     width: 35%;
@@ -11,7 +12,10 @@
     padding: 0.8vw;
     border: black 1px solid;
     border-radius: 5px;
+    box-sizing: border-box; 
+    appearance: none; 
 }
+
 
 
 .profile button {
