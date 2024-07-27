@@ -16,12 +16,12 @@
     appearance: none; 
     background-color: white;
 }
-input[type="date"],select {
-    color: #757575;
-  }
-  
-
-
+.profile input[type="date"],select {
+    color: black;
+}
+.profile input::placeholder{
+    color: black;
+}
 .profile button {
     margin: 1vw 0 0 1vw;
     padding: 0.5vw;
