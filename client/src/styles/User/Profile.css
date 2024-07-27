@@ -14,8 +14,12 @@
     border-radius: 5px;
     box-sizing: border-box; 
     appearance: none; 
+    background-color: white;
 }
-
+input[type="date"],select {
+    color: #757575;
+  }
+  
 
 
 .profile button {
