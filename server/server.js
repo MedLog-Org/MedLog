@@ -1,6 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors=require('cors');
+
 const app = express();
+app.use(cors());
+app.use(bodyParser.json());
 const PORT = 8000;
 
 require('dotenv').config();
@@ -14,6 +19,10 @@ connect.then(()=>{
 })
 app.get('/',(req,res)=>{
     res.send('Server is running');
+});
+app.post('/login',(req,res) =>{
+    console.log(req.body);
+    res.json({ success: true });
 });
 app.listen(PORT,()=>{
     console.log(`App is listening on http://localhost:${PORT}`);
