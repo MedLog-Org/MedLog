@@ -14,7 +14,7 @@
 }
 
 .box {
-    margin: 13vw 0 2vw 0;
+    margin: 15vw 0 2vw 0;
 }
 
 .grid {
@@ -75,8 +75,11 @@
 @media (max-width: 768px) {
     .title {
         margin-left: 2rem; /* Adjust title margin for smaller screens */
-        font-size: 1.2rem; /* Slightly smaller font size for mobile */
+        font-size: 2.2rem; /* Slightly smaller font size for mobile */
         text-align: center; /* Center the title for better alignment */
+    }
+    .box {
+        margin: 15vw 16px 2vw 16px;
     }
 
     .grid {
@@ -103,7 +106,11 @@
 
 @media (max-width: 480px) {
     .title {
-        font-size: 1rem; /* Even smaller font size for very small screens */
+        font-size: 1.7rem; /* Even smaller font size for very small screens */
+    }
+
+    .box {
+        margin: 24vw 16px 2vw 16px;
     }
 
     .grid {
