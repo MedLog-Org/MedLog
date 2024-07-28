@@ -13,6 +13,7 @@ import {
 import firebaseConfig from '../firebase-config';
 
 function Login() {
+  const URL ="https://medlog.onrender.com";
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -23,7 +24,7 @@ function Login() {
     event.preventDefault();
     const UserData = {email,password};
     console.log(UserData);
-    const response = await fetch('http://localhost:8000/login', {
+    const response = await fetch(`${URL}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(UserData),
@@ -60,7 +61,7 @@ function Login() {
 
   const sendUserDataToServer = async (user) => {
     try {
-      const response = await fetch('http://localhost:8000/login', {
+      const response = await fetch(`${URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
