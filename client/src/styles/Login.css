@@ -50,6 +50,11 @@
     color: #4274EA;
     transition: 0.8;
 }
+#message{
+    text-align: center;
+    margin:0;
+    font-size: 80%;
+}
 .or{
     display: flex;
     justify-content: left;
@@ -92,5 +97,8 @@
     }
     .google{
         margin: 3vw 0 3vw 0;
+    }
+    #message{
+        margin: 2vw 0 2vw 0;
     }
 }
