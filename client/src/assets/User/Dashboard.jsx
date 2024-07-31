@@ -4,37 +4,53 @@ import Profile from './Profile';
 import List from './List';
 import Records from './Records';
 import Footer from '../Footer';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 function Dashboard() {
   const [selectedComponent, setSelectedComponent] = useState('Profile');
+  const [name,setName] = useState('');
+  const [email,setEmail] = useState('');
+  const [sex,setSex] = useState('');
+  const [dob,setDOB] = useState('');
+  const [bloodGroup,setBloodGroup] = useState('');
 
-  const [userData, setUserData] = useState({
-    name: 'Sumit Kumar',
-    email: 'sumit.bio21@iitg.ac.in',
-    sex: 'Male',
-    dob: '01/01/2000',
-    bloodGroup: 'B+',
-  });
+  useEffect(() => {
+    const fetchUser = async () => {
+        try {
+        const URL = "http://localhost:8000/";
+        const response = await fetch(`${URL}`, {
+            method: 'GET',
+            credentials: 'include',
+        });
+        const result = await response.json();
+        console.log(result.user);
+        const user = result.user;
+        setName(user.name);
+        setEmail(user.email);
+        setSex(user.sex);
+        setDOB(user.dob);
+        setBloodGroup(user.bloodGroup);      
+        } catch (err) {
+        console.error(err);
+        }
+    };
+    fetchUser();
+    }, [name, email, sex, dob, bloodGroup]);
 
   const handleClick = (component) => {
     setSelectedComponent(component);
   };
 
-  const handleSaveProfile = (updatedProfile) => {
-    setUserData(updatedProfile);
-  };
-
   const renderSelectedComponent = () => {
     switch (selectedComponent) {
       case 'Profile':
-        return <Profile onSave={handleSaveProfile} userData={userData} />;
+        return <Profile/>;
       case 'Appointments':
         return <List />;
       case 'Records':
         return <Records />;
       default:
-        return <Profile onSave={handleSaveProfile} userData={userData} />;
+        return <Profile />;
     }
   };
 
@@ -46,11 +62,11 @@ function Dashboard() {
           <div className="user">
             <img src="/BlueSkull.png" alt="" />
             <div className="user-data">
-              <p>Name: {userData.name}</p>
-              <p>Email: {userData.email}</p>
-              <p>Sex: {userData.sex}</p>
-              <p>Date of Birth: {userData.dob}</p>
-              <p>Blood Group: {userData.bloodGroup}</p>
+              <p>Name: {name}</p>
+              <p>Email: {email}</p>
+              <p>Sex: {sex}</p>
+              <p>Date of Birth: {dob}</p>
+              <p>Blood Group: {bloodGroup}</p>
             </div>
           </div>
           <hr />

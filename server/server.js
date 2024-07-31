@@ -29,7 +29,7 @@ mongoose.connect(URI)
 const store = MongoStore.create({
   mongoUrl: URI,
   collectionName: 'sessions',
-  ttl: 14 * 24 * 60 * 60
+  ttl: 24 * 60 * 60
 });
 app.use(session({
   secret: 'secret_key',
@@ -42,7 +42,12 @@ app.use(session({
 app.post('/login', async (req, res) => {
   const data = {
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    name:'',
+    sex:'',
+    dob:'',
+    bloodGroup:'',
+    photo:'',
   };
   try {
     const user = await user_collection.findOne({ email: data.email });
@@ -51,8 +56,7 @@ app.post('/login', async (req, res) => {
         console.log('User Found', user);
         req.session.userId = user._id;
         req.session.loggedIn = true;
-        console.log(req.session);
-        res.json({ success: true, message: "Successfully Login", user });
+        res.json({ success: true, message: "Successfully Login"});
       } else {
         res.json({ success: false, message: "Wrong Password" });
       }
@@ -62,8 +66,7 @@ app.post('/login', async (req, res) => {
       console.log('New User Created', newUser);
       req.session.userId = newUser._id;
       req.session.loggedIn = true;
-      console.log(req.session);
-      res.json({ success: true, message: "New User Registered and Logged In", newUser });
+      res.json({ success: true, message: "New User Registered and Logged In"});
     }
   } catch (error) {
     console.error('Error during login:', error);
@@ -71,14 +74,36 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.post('/user/profile', async (req, res) => {
+  const { id, name, email, sex, dob, bloodGroup } = req.body;
+  try {
+    const user = await user_collection.findByIdAndUpdate(id, {
+      $set: {
+        name: name || undefined, 
+        email: email || undefined,
+        sex: sex || undefined,
+        dob: dob || undefined,
+        bloodGroup: bloodGroup || undefined
+      }
+    }, { new: true });
+
+    if (!user) {
+      res.status(404).json({success:false, message: 'User not found' });
+    } else {
+      res.json({ success:true,message: 'User profile updated successfully' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error updating user profile' });
+  }
+});
+
 app.get('/', async (req, res) => {
   try {
-    console.log(req.session.userId);
     if (req.session.loggedIn) {
       console.log(req.session);
       const user = await user_collection.findOne({ _id: req.session.userId });
       console.log(user);
-      // Assuming you want to send the user data back
       res.json({
         isLoggedIn: true,
         user: user

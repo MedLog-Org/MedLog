@@ -10,6 +10,15 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String,
     },
+    sex:{
+        type:String
+    },
+    dob:{
+        type:String
+    },
+    bloodGroup:{
+        type:String
+    },
     photo:{
         type:String,
     }

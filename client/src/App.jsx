@@ -19,7 +19,7 @@ function App() {
           <Route path='/' element={Home}/>
           <Route path='/login' element={login}/>
           <Route path='/appointments' element={appointments}/>
-          <Route path='/help' element={dashboard}/>
+          <Route path='/dashboard' element={dashboard}/>
           <Route path='/pharmacy' element={doc}/>
         </Routes>
       </BrowserRouter>
