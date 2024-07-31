@@ -3,12 +3,13 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const MongoStore = require('connect-mongo');  // Import connect-mongo
+const MongoStore = require('connect-mongo');
 const user_collection = require("./models/user");
 
 const app = express();
 
 app.use(cors({
+  origin: 'http://localhost:5173',
   credentials:true
 }));
 app.use(bodyParser.json());
