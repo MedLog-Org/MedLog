@@ -71,20 +71,29 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.get('/', (req, res) => {
-  console.log(req.session.userId);
-  if (req.session.loggedIn) {
-    console.log(req.session);
-    res.json({
-      success: true,
-      message: "User is logged in",
-      userId: req.session.userId,
-      loggedIn: req.session.loggedIn
-    });
-  } else {
-    res.json({
+app.get('/', async (req, res) => {
+  try {
+    console.log(req.session.userId);
+    if (req.session.loggedIn) {
+      console.log(req.session);
+      const user = await user_collection.findOne({ _id: req.session.userId });
+      console.log(user);
+      // Assuming you want to send the user data back
+      res.json({
+        isLoggedIn: true,
+        user: user
+      });
+    } else {
+      res.json({
+        isLoggedIn: false,
+        message: "User is not logged in"
+      });
+    }
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({
       success: false,
-      message: "User is not logged in"
+      message: "Internal Server Error"
     });
   }
 });
