@@ -5,6 +5,8 @@ import List from './List';
 import Records from './Records';
 import Footer from '../Footer';
 import { useState,useEffect } from 'react';
+import {useNavigate } from 'react-router-dom';
+
 
 function Dashboard() {
   const [selectedComponent, setSelectedComponent] = useState('Profile');
@@ -13,7 +15,7 @@ function Dashboard() {
   const [sex,setSex] = useState('');
   const [dob,setDOB] = useState('');
   const [bloodGroup,setBloodGroup] = useState('');
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchUser = async () => {
         try {
@@ -36,7 +38,24 @@ function Dashboard() {
     };
     fetchUser();
     }, [name, email, sex, dob, bloodGroup]);
-
+  
+    const logout = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/logout', {
+          method: 'POST',
+          credentials: 'include'
+        });
+        const data = await response.json();
+        console.log(data);
+        if(data.success){
+          navigate('/');
+        }
+      } 
+      catch (error) {
+        console.error(error);
+      } 
+    };
+    
   const handleClick = (component) => {
     setSelectedComponent(component);
   };
@@ -67,6 +86,7 @@ function Dashboard() {
               <p>Sex: {sex}</p>
               <p>Date of Birth: {dob}</p>
               <p>Blood Group: {bloodGroup}</p>
+              <button onClick={logout}>Logout</button>
             </div>
           </div>
           <hr />

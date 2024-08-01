@@ -27,6 +27,18 @@
     margin: 10px;
     font-size: 1.5rem;
 }
+.user-data button{
+    margin-left: 10px;
+    background-color: #4274EA;
+    border: #4274EA 1px solid;
+    border-radius: 25px;
+    color: white;
+    padding: 0.7vw;
+}
+.user-data button:hover{
+    background-color:white;
+    color: #4274EA;
+}
 .Board ul{
     margin: 3vw 0 0 0;
     padding: 0;
@@ -66,5 +78,10 @@
     .Board li{
         font-size: 80%;
         padding: 2vw;
+    }
+    .user-data button{
+        padding: 1vw;
+        margin: 0;
+        border-radius: 10px;
     }
 }

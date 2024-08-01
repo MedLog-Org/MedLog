@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 const PORT = 8000;
 
 require('dotenv').config();
-const URI = process.env.DB_URI;
+const URI = process.env.Local_URI;
 
 mongoose.connect(URI)
   .then(() => {
@@ -71,6 +71,17 @@ app.post('/login', async (req, res) => {
   } catch (error) {
     console.error('Error during login:', error);
     return res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
+
+app.post('/logout', async (req, res) => {
+  try {
+    req.session.destroy();
+    console.log("logout success")
+    res.json({ success: true, message: "Successfully Logged Out" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Error logging out" });
   }
 });
 
