@@ -15,19 +15,19 @@ function Doc(){
     useEffect(() => {
       const fetchUser = async () => {
           try {
-            const URL = "http://localhost:8000/";
-            const response = await fetch(`${URL}`, {
-                method: 'GET',
-                credentials: 'include',
-            });
-            const result = await response.json();
-            console.log(result.user);
-            const doctor = result.user;
-            setName(doctor.name);
-            setEmail(doctor.email);
-            setPhone(doctor.phone);
-            setSpeciality(doctor.speciality);    
-
+          const URL = "http://localhost:8000/";
+          const response = await fetch(`${URL}`, {
+              method: 'GET',
+              credentials: 'include',
+          });
+          const result = await response.json();
+          console.log(result.doctor);
+          const doctor = result.doctor;
+          setName(doctor.name);
+          setEmail(doctor.email);
+          setPhone(doctor.phone);
+          setSpeciality(doctor.speciality);
+          //setBloodGroup(user.bloodGroup);      
           } catch (err) {
           console.error(err);
           }

@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 const PORT = 8000;
 
 require('dotenv').config();
-const URI = process.env.Local_URI;
+const URI = process.env.DB_URI;
 
 mongoose.connect(URI)
   .then(() => {
@@ -131,6 +131,29 @@ app.post('/user/profile', async (req, res) => {
   }
 });
 
+app.post('/doc/profile', async (req, res) => {
+  const { id, name, email, phone, speciality } = req.body;
+  try {
+    const user = await doc_collection.findByIdAndUpdate(id, {
+      $set: {
+        name: name || undefined, 
+        email: email || undefined,
+        phone: phone || undefined,
+        speciality: speciality || undefined,
+        
+      }
+    }, { new: true });
+
+    if (!user) {
+      res.status(404).json({success:false, message: 'User not found' });
+    } else {
+      res.json({ success:true,message: 'User profile updated successfully' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error updating user profile' });
+  }
+});
 app.get('/', async (req, res) => {
   try {
     if (req.session.loggedIn) {
