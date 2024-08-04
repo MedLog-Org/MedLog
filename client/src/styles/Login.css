@@ -14,11 +14,38 @@
     border-radius: 25px;
     padding: 2vw;
     width: 35vw;
-    min-height: 40vh;
+    min-height: auto;
     background-color: white;
     display: flex;
     flex-direction: column;
-    margin-top: 5vw;
+    margin-top: 8vw;
+}
+.login-card ul{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+.login-card li{
+    list-style: none;
+    padding: 1vw;
+    background-color:#4274EA;
+    margin: 0 1vw 0 1vw;
+    border: #4274EA 1px solid;
+    border-radius: 20px;
+    color: white;
+}
+.login-card li:hover{
+    background-color: #E1F7FF;
+    color: #4274EA;
+}
+#choose{
+    margin: 2vw 0 2vw 0;
+    padding: 1vw;
+    border-radius: 5px;
+    background-color: #E1F7FF;
+    text-align: center;
+    color: #4274EA;
 }
 .cross{
     display: flex;
@@ -100,5 +127,8 @@
     }
     #message{
         margin: 2vw 0 2vw 0;
+    }
+    .login-card li{
+        border-radius: 10px;
     }
 }

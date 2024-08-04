@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const MongoStore = require('connect-mongo');
 const user_collection = require("./models/user");
+const doc_collection = require("./models/doctor")
 
 const app = express();
 
@@ -40,17 +41,34 @@ app.use(session({
 }));
 
 app.post('/login', async (req, res) => {
-  const data = {
-    email: req.body.email,
-    password: req.body.password,
-    name:'',
-    sex:'',
-    dob:'',
-    bloodGroup:'',
-    photo:'',
-  };
+  let data;
+  let collection;
+  if(req.body.userType=='patient'){
+    data = {
+      email: req.body.email,
+      password: req.body.password,
+      name:'',
+      sex:'',
+      dob:'',
+      bloodGroup:'',
+      photo:'',
+    };
+    collection = user_collection;
+  }
+  else if(req.body.userType == 'doctor'){
+      data = {
+      email: req.body.email,
+      password: req.body.password,
+      phone:'',
+      specaility:'',
+      photo:'',
+    };
+    collection = doc_collection;
+  }
+
+  console.log(req.body);
   try {
-    const user = await user_collection.findOne({ email: data.email });
+    const user = await collection.findOne({ email: data.email });
     if (user) {
       if (user.password === data.password) {
         console.log('User Found', user);
@@ -61,7 +79,7 @@ app.post('/login', async (req, res) => {
         res.json({ success: false, message: "Wrong Password" });
       }
     } else {
-      const newUser = new user_collection(data);
+      const newUser = new collection(data);
       await newUser.save();
       console.log('New User Created', newUser);
       req.session.userId = newUser._id;
