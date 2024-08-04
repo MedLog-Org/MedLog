@@ -2,7 +2,7 @@ import '../../styles/Dashboard.css'
 import Navbar from '../Navbar'
 import Profile from './Profile';
 import Card_List from './Card_List'
-import Footer from '../Footer'
+
 import { useNavigate } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 function Doc(){
@@ -15,19 +15,19 @@ function Doc(){
     useEffect(() => {
       const fetchUser = async () => {
           try {
-          const URL = "http://localhost:8000/";
-          const response = await fetch(`${URL}`, {
-              method: 'GET',
-              credentials: 'include',
-          });
-          const result = await response.json();
-          console.log(result.doctor);
-          const doctor = result.doctor;
-          setName(doctor.name);
-          setEmail(doctor.email);
-          setPhone(doctor.phone);
-          setSpeciality(doctor.speciality);
-          //setBloodGroup(user.bloodGroup);      
+            const URL = "http://localhost:8000/";
+            const response = await fetch(`${URL}`, {
+                method: 'GET',
+                credentials: 'include',
+            });
+            const result = await response.json();
+            console.log(result.user);
+            const doctor = result.user;
+            setName(doctor.name);
+            setEmail(doctor.email);
+            setPhone(doctor.phone);
+            setSpeciality(doctor.speciality);    
+
           } catch (err) {
           console.error(err);
           }
