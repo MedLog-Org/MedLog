@@ -14,8 +14,8 @@ function App() {
   const doc = <Doc></Doc>
   const login = <Login></Login>
 
-  const [user, setUser] = useState(null);
-
+  const [component,setComponent] = useState(null)
+  const [isLogged, setIsLogged] = useState(false);
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -26,7 +26,20 @@ function App() {
         });
         const result = await response.json();
         console.log(result);
-        setUser(result.user);
+        if(result.isLoggedIn){
+          const userType = result.user.userType;
+          setIsLogged(true);
+          if(userType === 'patient'){
+            setComponent(patient);
+          }
+          else if(userType === 'doctor'){
+            setComponent(doc);
+          }
+          else{
+            console.log(userType);
+          }
+        }
+        
       } catch (err) {
         console.error(err);
       }
@@ -41,13 +54,7 @@ function App() {
           <Route path='/' element={Home} />
           <Route path='/login' element={login} />
           <Route path='/appointments' element={appointments} />
-          <Route path='/dashboard' element={
-            user ? (
-              user.userType === 'patient' ? patient : doc
-            ) : (
-              <Navigate to='/login' replace />
-            )
-          } />
+          {isLogged && <Route path='/dashboard' element={component} />}
         </Routes>
       </BrowserRouter>
     </>
