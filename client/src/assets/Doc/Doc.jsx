@@ -4,9 +4,37 @@ import Profile from './Profile';
 import Card_List from './Card_List'
 import Footer from '../Footer'
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 function Doc(){
     const [selectedComponent, setSelectedComponent] = useState('Profile');
+    const [name,setName]=useState("");
+    const [email,setEmail]=useState("");
+    const [phone,setPhone]=useState("");
+    const [speciality,setSpeciality]=useState("");
+
+    useEffect(() => {
+      const fetchUser = async () => {
+          try {
+          const URL = "http://localhost:8000/";
+          const response = await fetch(`${URL}`, {
+              method: 'GET',
+              credentials: 'include',
+          });
+          const result = await response.json();
+          console.log(result.doctor);
+          const doctor = result.doctor;
+          setName(doctor.name);
+          setEmail(doctor.email);
+          setPhone(doctor.phone);
+          setSpeciality(doctor.speciality);
+          //setBloodGroup(user.bloodGroup);      
+          } catch (err) {
+          console.error(err);
+          }
+      };
+      fetchUser();
+      }, [name, email, phone, speciality]);
+
     const navigate = useNavigate();
     
     const handleClick = (component) => {
@@ -48,10 +76,10 @@ function Doc(){
                 <div className="user">
                     <img src="/doc.png" alt="" />
                     <div className="user-data">
-                        <p>Name: Dr. Vansh Gupta</p>
-                        <p>Email: v.vansh@iitg.ac.in</p>
-                        <p>Phone: 1234567890</p>
-                        <p>Speciality: Dentist</p>
+                        <p>Name: {name}</p>
+                        <p>Email: {email}</p>
+                        <p>Phone: {phone}</p>
+                        <p>Speciality: {speciality}</p>
                         <button onClick={logout}>Logout</button>
                     </div>
                 </div>
