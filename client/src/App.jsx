@@ -16,6 +16,7 @@ function App() {
 
   const [component,setComponent] = useState(null)
   const [isLogged, setIsLogged] = useState(false);
+  const [path,setPath] = useState('');
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -29,6 +30,9 @@ function App() {
         if(result.isLoggedIn){
           const userType = result.user.userType;
           setIsLogged(true);
+          const str = `/dashboard/${result.user._id}`;
+          setPath(str);
+          console.log(path)
           if(userType === 'patient'){
             setComponent(patient);
           }
@@ -54,7 +58,7 @@ function App() {
           <Route path='/' element={Home} />
           <Route path='/login' element={login} />
           <Route path='/appointments' element={appointments} />
-          {isLogged && <Route path='/dashboard' element={component} />}
+          {isLogged && <Route path={path} element={component} />}
         </Routes>
       </BrowserRouter>
     </>

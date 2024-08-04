@@ -4,6 +4,7 @@ import React from 'react';
 import { useState,useEffect } from 'react';
 function Navbar() {
     const [isLoggedIn,setisLoggedIn] = useState(false);
+    const [path,setPath] = useState('');
     useEffect(() => {
     const fetchUser = async () => {
         try {
@@ -15,6 +16,9 @@ function Navbar() {
         const result = await response.json();
         console.log(result);
         setisLoggedIn(result.isLoggedIn)
+        const str = `/dashboard/${result.user._id}`;
+        setPath(str);
+        console.log(path)
         } catch (err) {
         console.error(err);
         }
@@ -28,9 +32,9 @@ function Navbar() {
       <ul>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/appointments">Appointments</Link></li>
-        <li><Link to="/pharmacy">Pharmacy</Link></li>
+        <li><Link to="#">Pharmacy</Link></li>
         <li><Link to="#">Help</Link></li>
-        {isLoggedIn ? <li><Link to="/dashboard" id='btn'>Profile</Link></li>: <li><Link to="/login" id='btn'>Sign in</Link></li>}
+        {isLoggedIn ? <li><Link to={path} id='btn'>Profile</Link></li>: <li><Link to="/login" id='btn'>Sign in</Link></li>}
       </ul>
     </div>
   );
