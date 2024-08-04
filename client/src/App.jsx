@@ -5,13 +5,30 @@ import Appointments from './assets/Appointments'
 import Dashboard from './assets/User/Dashboard'
 import Doc from './assets/Doc/Doc'
 import {BrowserRouter, Route,Routes} from 'react-router-dom'
+import { useState } from 'react'
 
 function App() {
   const Home = <LandingPage></LandingPage>
-  const login = <Login></Login>
   const appointments = <Appointments></Appointments>
-  const dashboard = <Dashboard></Dashboard>
+  const patient = <Dashboard></Dashboard>
   const doc = <Doc></Doc>
+  
+  const [userType, setUserType] = useState(''); // Use a more descriptive name
+  const [board,setBoard] = useState(<Dashboard/>)
+  
+  const updateUser=(newUser)=>
+  {
+    console.log(newUser);
+
+    setUserType(newUser);
+    if(newUser=='patient')
+    setBoard(patient)
+    else if(newUser=='doctor')
+    setBoard(doc)
+    else
+    console.log(newUser);
+  };
+  const login = <Login userType={userType} updateUser={updateUser}></Login>
   return (
     <>
       <BrowserRouter>
@@ -19,8 +36,7 @@ function App() {
           <Route path='/' element={Home}/>
           <Route path='/login' element={login}/>
           <Route path='/appointments' element={appointments}/>
-          <Route path='/dashboard' element={dashboard}/>
-          <Route path='/pharmacy' element={doc}/>
+          <Route path='/dashboard' element={board} /> 
         </Routes>
       </BrowserRouter>
       

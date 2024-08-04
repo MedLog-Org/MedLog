@@ -3,12 +3,14 @@ import Navbar from './Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 
-function Login() {
+
+
+function Login({userType,updateUser}) {
   const URL = "http://localhost:8000";
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const [userType, setUserType] = useState(''); // Use a more descriptive name
+  const [user, setUser] =useState('');
 
   const navigate = useNavigate();
 
@@ -31,6 +33,7 @@ function Login() {
       setEmail('');
       setPassword('');
       setMessage('');
+
       navigate('/');
     } else {
       setPassword('');
@@ -40,7 +43,9 @@ function Login() {
   };
 
   const handleUserTypeChange = (userType) => { // More descriptive function name
-    setUserType(userType); // Set the state directly
+    setUser(userType)
+    updateUser(userType);
+    console.log(userType);
   };
 
   return (
