@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 const PORT = 8000;
 
 require('dotenv').config();
-const URI = process.env.DB_URI;
+const URI = process.env.Local_URI;
 
 mongoose.connect(URI)
   .then(() => {
@@ -63,7 +63,7 @@ app.post('/login', async (req, res) => {
       password: req.body.password,
       userType:req.body.userType,
       phone:'',
-      specaility:'',
+      speciality:'',
       photo:'',
     };
     collection = doc_collection;
