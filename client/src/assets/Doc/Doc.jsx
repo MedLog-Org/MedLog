@@ -21,8 +21,8 @@ function Doc(){
               credentials: 'include',
           });
           const result = await response.json();
-          console.log(result.doctor);
-          const doctor = result.doctor;
+          console.log(result.user);
+          const doctor = result.user;
           setName(doctor.name);
           setEmail(doctor.email);
           setPhone(doctor.phone);
