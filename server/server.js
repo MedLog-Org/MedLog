@@ -43,10 +43,12 @@ app.use(session({
 app.post('/login', async (req, res) => {
   let data;
   let collection;
+  console.log(`user: ${req.body.userType}`);
   if(req.body.userType=='patient'){
     data = {
       email: req.body.email,
       password: req.body.password,
+      userType: req.body.userType,
       name:'',
       sex:'',
       dob:'',
@@ -59,6 +61,7 @@ app.post('/login', async (req, res) => {
       data = {
       email: req.body.email,
       password: req.body.password,
+      userType:req.body.userType,
       phone:'',
       specaility:'',
       photo:'',
@@ -66,13 +69,13 @@ app.post('/login', async (req, res) => {
     collection = doc_collection;
   }
 
-  console.log(req.body);
   try {
     const user = await collection.findOne({ email: data.email });
     if (user) {
       if (user.password === data.password) {
         console.log('User Found', user);
         req.session.userId = user._id;
+        req.session.userType = user.userType;
         req.session.loggedIn = true;
         res.json({ success: true, message: "Successfully Login"});
       } else {
@@ -83,6 +86,7 @@ app.post('/login', async (req, res) => {
       await newUser.save();
       console.log('New User Created', newUser);
       req.session.userId = newUser._id;
+      req.session.userType = newUser.userType;
       req.session.loggedIn = true;
       res.json({ success: true, message: "New User Registered and Logged In"});
     }
@@ -131,7 +135,15 @@ app.get('/', async (req, res) => {
   try {
     if (req.session.loggedIn) {
       console.log(req.session);
-      const user = await user_collection.findOne({ _id: req.session.userId });
+      let collection;
+      if(req.session.userType=='patient')
+        collection=user_collection;
+      else if(req.session.userType=='doctor')
+        collection=doc_collection;
+      else
+        console.log(req.session.userType);
+
+      const user = await collection.findOne({ _id: req.session.userId });
       console.log(user);
       res.json({
         isLoggedIn: true,

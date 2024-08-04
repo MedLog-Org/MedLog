@@ -5,30 +5,41 @@ import Appointments from './assets/Appointments'
 import Dashboard from './assets/User/Dashboard'
 import Doc from './assets/Doc/Doc'
 import {BrowserRouter, Route,Routes} from 'react-router-dom'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 
 function App() {
   const Home = <LandingPage></LandingPage>
   const appointments = <Appointments></Appointments>
   const patient = <Dashboard></Dashboard>
   const doc = <Doc></Doc>
-  
-  const [userType, setUserType] = useState(''); // Use a more descriptive name
-  const [board,setBoard] = useState(<Dashboard/>)
-  
-  const updateUser=(newUser)=>
-  {
-    console.log(newUser);
+  const login = <Login></Login>
 
-    setUserType(newUser);
-    if(newUser=='patient')
-    setBoard(patient)
-    else if(newUser=='doctor')
-    setBoard(doc)
-    else
-    console.log(newUser);
-  };
-  const login = <Login userType={userType} updateUser={updateUser}></Login>
+  const [userComponent,setUserComponent] = useState(patient);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+        try {
+          const URL = "http://localhost:8000/";
+          const response = await fetch(`${URL}`, {
+              method: 'GET',
+              credentials: 'include',
+          });
+          const result = await response.json();
+          const data = result.user;
+          console.log(data.userType);
+          if(data.userType=='patient')
+            setUserComponent(patient);
+          else if(data.userType=='doctor')
+            setUserComponent(doc);
+          else
+          console.log(result);
+
+        } catch (err) {
+        console.error(err);
+        }
+    };
+    fetchUser();
+  }, []);
   return (
     <>
       <BrowserRouter>
@@ -36,7 +47,7 @@ function App() {
           <Route path='/' element={Home}/>
           <Route path='/login' element={login}/>
           <Route path='/appointments' element={appointments}/>
-          <Route path='/dashboard' element={board} /> 
+          <Route path='/dashboard' element={userComponent} /> 
         </Routes>
       </BrowserRouter>
       
