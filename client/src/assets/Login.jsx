@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 
 function Login() {
-  const URL = "http://localhost:8000";
+  const URL = "http://localhost:8000/";
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -17,7 +17,7 @@ function Login() {
     const UserData = { email, password, userType };
     console.log(UserData);
 
-    const response = await fetch(`${URL}/login`, {
+    const response = await fetch(`${URL}login`, {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },

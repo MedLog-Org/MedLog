@@ -4,6 +4,7 @@ import Login from './assets/Login'
 import Appointments from './assets/Appointments'
 import Dashboard from './assets/User/Dashboard'
 import Doc from './assets/Doc/Doc'
+import NotFound from './assets/NotFound'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
@@ -59,6 +60,7 @@ function App() {
           <Route path='/login' element={login} />
           <Route path='/appointments' element={appointments} />
           {isLogged && <Route path={path} element={component} />}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>

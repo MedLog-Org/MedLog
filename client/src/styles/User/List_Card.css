@@ -15,6 +15,38 @@
     margin: 10px;
     font-size: 1rem;
 }
+.list{
+    margin: 2vw 0 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+.list button{
+    margin: 0;
+    padding: 0;
+    min-width:105px;
+    width: 20%;
+    background-color: #4274EA;
+    color: white;
+    border: #4274EA 1px solid;
+    border-radius: 10px;
+    padding: 1vw;
+    margin: 1vw;
+    
+}
+.list button:hover{
+    background-color: #E0F6FF;
+    color: #4274EA;
+    cursor: pointer;
+}
+.list p{
+    margin: 1vw 0 1vw 1.5vw;
+    padding: 1vw;
+    font-weight: 600;
+    text-align: left;
+    padding: 0;
+    color: #4274EA;
+}
 @media only screen and (max-width: 600px) {
     .user-appointment{
         margin: 3vw 8vw 3vw 8vw;
@@ -32,5 +64,15 @@
     .doc-data p{
         margin: 5px;
         font-size: 0.5rem;
+    }
+    .list{
+        align-items: center;
+    }
+    .list button{
+        font-size: 70%;
+        border-radius: 5px;
+    }
+    .list p{
+        margin: 1vw 0 1vw 0;
     }
 }

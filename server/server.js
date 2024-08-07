@@ -5,19 +5,20 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const MongoStore = require('connect-mongo');
 const user_collection = require("./models/user");
-const doc_collection = require("./models/doctor")
+const doc_collection = require("./models/doctor");
+const slot_collection = require("./models/slot")
 
 const app = express();
 
 app.use(cors({
   origin: 'http://localhost:5173',
-  credentials:true
+  credentials:false
 }));
 app.use(bodyParser.json());
 const PORT = 8000;
 
 require('dotenv').config();
-const URI = process.env.DB_URI;
+const URI = process.env.Local_URI;
 
 mongoose.connect(URI)
   .then(() => {
@@ -41,6 +42,7 @@ app.use(session({
 }));
 
 app.post('/login', async (req, res) => {
+  console.log("getting this");
   let data;
   let collection;
   console.log(`user: ${req.body.userType}`);
@@ -154,6 +156,80 @@ app.post('/doc/profile', async (req, res) => {
     res.status(500).json({ message: 'Error updating user profile' });
   }
 });
+
+
+app.post('/slots',async( req, res) =>{
+  const speciality = stringify(req.body.speciality);
+  console.log(speciality);
+  try{
+    const slots = slot_collection.findOne({speciality:speciality});
+    if(slots){
+      res.json({ success:true,message: 'List Found',slots });
+    }
+    else{
+      res.json({ success:false,message: 'List Not Found' });
+    }
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+
+});
+app.post('/doc/bookslot', async(req,res) => {
+  console.log(req.body);
+  try{
+    const slot = await slot_collection.findOne({slotId: req.body.slotId});
+    if(slot){
+      console.log(slot);
+      res.json({ success:true, message: 'SLot Already Booked',slot });
+    }
+    else{
+      const roomMap = {
+        "General Physician":100,
+        "Dentist":101,
+        "Ortho":102,
+        "Gynac":103,
+        "Pedia":104,
+        "Urologist":105,
+        "Opthamologist":106,
+        "More":107,
+      };
+      const data = {
+        slotId:req.body.slotId,
+        speciality: req.body.speciality,
+        docId: req.body.docId,
+        roomNumber: roomMap[req.body.speciality],
+        slots:[
+          { time: "", status: false, patientId: "" },
+          { time: "", status: false, patientId: "" },
+          { time: "", status: false, patientId: "" },
+          { time: "", status: false, patientId: "" },
+          { time: "", status: false, patientId: "" },
+          { time: "", status: false, patientId: "" },
+        ],
+      };
+      const timeMap = {
+        "1": ["08-09","09-10","10-11","11-12","12-13","13-14"],
+        "2": ["14-15","15-16","16-17","17-18","18-19","19-20"],
+      }
+      const timeSlots = timeMap[req.body.slotId];
+      data.slots.forEach((slot, index) => {
+        slot.time = timeSlots[index];
+      });
+
+      console.log(data);
+      const newSlot = new slot_collection(data);
+      newSlot.save();
+      res.json({ success:true, message: 'Slot Booked',newSlot });
+    }
+  }
+  catch(error){
+    console.log(error)
+    res.status(500).json({ message: 'Error in slot booking' });
+  }
+});
+
 app.get('/', async (req, res) => {
   try {
     if (req.session.loggedIn) {

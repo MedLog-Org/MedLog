@@ -3,7 +3,7 @@ import Navbar from '../Navbar'
 import Profile from './Profile';
 import Card_List from './Card_List'
 
-import { useNavigate } from 'react-router-dom';
+import { useAsyncError, useNavigate } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 function Doc(){
     const [selectedComponent, setSelectedComponent] = useState('Profile');
@@ -11,6 +11,7 @@ function Doc(){
     const [email,setEmail]=useState("");
     const [phone,setPhone]=useState("");
     const [speciality,setSpeciality]=useState("");
+    const [docId, setDocId] = useState("");
 
     useEffect(() => {
       const fetchUser = async () => {
@@ -26,7 +27,8 @@ function Doc(){
           setName(doctor.name);
           setEmail(doctor.email);
           setPhone(doctor.phone);
-          setSpeciality(doctor.speciality);     
+          setSpeciality(doctor.speciality);  
+          setDocId(doctor._id);   
           } catch (err) {
           console.error(err);
           }
@@ -45,7 +47,7 @@ function Doc(){
         case 'Profile':
           return <Profile />;
         case 'Appointments':
-          return <Card_List />;
+          return <Card_List speciality={speciality} docId={docId} />;
         default:
           return <Profile/>;
       }
@@ -85,7 +87,7 @@ function Doc(){
                 <hr />
                 <ul>
                 <li onClick={() => handleClick('Profile')}>Profile</li>
-                <li onClick={() => handleClick('Appointments')}>Appointments</li>
+                <li onClick={() => handleClick('Appointments')}>Add Your Slot</li>
                 </ul>
                 {renderSelectedComponent()}
             </div>
