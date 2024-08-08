@@ -21,6 +21,13 @@ const docSchema = new mongoose.Schema({
     },
     photo:{
         type:String,
+    },
+    slotId:{
+        type:String,
+    },
+    roomNumber:{
+        type:String,
     }
+
 })
 module.exports = mongoose.model('doctor',docSchema);

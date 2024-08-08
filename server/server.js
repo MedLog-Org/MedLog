@@ -12,7 +12,7 @@ const app = express();
 
 app.use(cors({
   origin: 'http://localhost:5173',
-  credentials:false
+  credentials:true
 }));
 app.use(bodyParser.json());
 const PORT = 8000;
@@ -67,6 +67,8 @@ app.post('/login', async (req, res) => {
       phone:'',
       speciality:'',
       photo:'',
+      roomNumber:'',
+      slotId:'',
     };
     collection = doc_collection;
   }
@@ -159,12 +161,12 @@ app.post('/doc/profile', async (req, res) => {
 
 
 app.post('/slots',async( req, res) =>{
-  const speciality = stringify(req.body.speciality);
-  console.log(speciality);
+  console.log(req.body.speciality);
   try{
-    const slots = slot_collection.findOne({speciality:speciality});
+    const slots = await slot_collection.find({speciality:req.body.speciality});
     if(slots){
-      res.json({ success:true,message: 'List Found',slots });
+      const slotIds = slots.map(slot => slot.slotId);
+      res.json({ success:true,message: 'List Found',slotIds });
     }
     else{
       res.json({ success:false,message: 'List Not Found' });
@@ -178,28 +180,24 @@ app.post('/slots',async( req, res) =>{
 });
 app.post('/doc/bookslot', async(req,res) => {
   console.log(req.body);
-  try{
-    const slot = await slot_collection.findOne({slotId: req.body.slotId});
-    if(slot){
-      console.log(slot);
-      res.json({ success:true, message: 'SLot Already Booked',slot });
-    }
-    else{
-      const roomMap = {
-        "General Physician":100,
-        "Dentist":101,
-        "Ortho":102,
-        "Gynac":103,
-        "Pedia":104,
-        "Urologist":105,
-        "Opthamologist":106,
-        "More":107,
-      };
+  try{      
+      let room = 100;
+      for(let i = 101; i <= 120; i++) {
+        const slot = await slot_collection.findOne({slotId:req.body.slotId,speciality:req.body.speciality,roomNumber:i});
+        console.log(slot);
+        console.log(`Room number : ${room}`);
+        if (slot==null) {
+          room = i;
+          console.log(`Room number : ${room}`);
+          break;
+        }
+      }
+
       const data = {
         slotId:req.body.slotId,
         speciality: req.body.speciality,
         docId: req.body.docId,
-        roomNumber: roomMap[req.body.speciality],
+        roomNumber: room,
         slots:[
           { time: "", status: false, patientId: "" },
           { time: "", status: false, patientId: "" },
@@ -219,10 +217,17 @@ app.post('/doc/bookslot', async(req,res) => {
       });
 
       console.log(data);
+      const doc = await doc_collection.findByIdAndUpdate(req.body.docId, {
+        $set: {
+          roomNumber:room,
+          slotId:req.body.slotId
+        }
+      }, { new: true });
+
       const newSlot = new slot_collection(data);
       newSlot.save();
-      res.json({ success:true, message: 'Slot Booked',newSlot });
-    }
+      res.json({ success:true, message: 'Slot Booked',newSlot});
+
   }
   catch(error){
     console.log(error)

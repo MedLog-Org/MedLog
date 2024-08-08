@@ -10,7 +10,7 @@ const slotSchema = new mongoose.Schema({
         type: String
     },
     roomNumber: {
-        type: String
+        type: Number
     },
     slots: [{
         time: {

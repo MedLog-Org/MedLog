@@ -1,25 +1,28 @@
 import "../../styles/User/List_Card.css"
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 function List({speciality,docId}){
     const URL = "http://localhost:8000/";
+    const [slotId,setSlotId] = useState([]);
+    useEffect(() => {
+        const fetchSLot = async () => {
+            try {
+            const response = await fetch(`${URL}slots`, {
+              method: 'POST',
+              credentials: 'include',
+              headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({speciality}),
+            });
+            const result = await response.json();
+            console.log(result.slotIds);
+            setSlotId(s=>[...s,result.slotIds]);
+            console.log(slotId);
 
-    // useEffect(() => {
-    //     const fetchSLot = async () => {
-    //         try {
-    //         const response = await fetch(`${URL}slots`, {
-    //             method: 'POST',
-    //             credentials: 'include',
-    //             body: JSON.stringify({speciality}),
-    //         });
-    //         const result = await response.json();
-    //         console.log(result);
-
-    //         } catch (err) {
-    //             console.error(err);
-    //         }
-    //     };
-    //     fetchSLot();
-    //     }, []);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        fetchSLot();
+        }, []);
 
     const handleClick = async (slotId) => {
         const response = await fetch(`${URL}doc/bookslot`, {
@@ -42,8 +45,9 @@ function List({speciality,docId}){
     return(
         <div className="list">
             <p>Available Slots</p>
-            <button onClick={() => handleClick('1')}>08 - 14</button>
-            <button onClick={() => handleClick('2')}>14 - 20</button>
+            {slotId.length==2 ? null : <p>No Available Slots</p>}
+            {slotId?.includes("1") ? null : <button onClick={() => handleClick('1')}>08 - 14</button>}
+            {slotId?.includes("2") ? null : <button onClick={() => handleClick('2')}>14 - 20</button>}
         </div>
     )
 }

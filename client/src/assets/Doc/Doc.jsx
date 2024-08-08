@@ -12,6 +12,8 @@ function Doc(){
     const [phone,setPhone]=useState("");
     const [speciality,setSpeciality]=useState("");
     const [docId, setDocId] = useState("");
+    const [time, setTime] = useState("");
+    const [room, setRoom] = useState("");
 
     useEffect(() => {
       const fetchUser = async () => {
@@ -29,6 +31,14 @@ function Doc(){
           setPhone(doctor.phone);
           setSpeciality(doctor.speciality);  
           setDocId(doctor._id);   
+          setRoom(doctor.roomNumber);
+          const slotId = doctor.slotId;
+          if(slotId=="1"){
+            setTime("[08 - 14]")
+          }
+          else if(slotId=="2"){
+            setTime("[14 - 20]");
+          }
           } catch (err) {
           console.error(err);
           }
@@ -81,6 +91,7 @@ function Doc(){
                         <p>Email: {email}</p>
                         <p>Phone: {phone}</p>
                         <p>Speciality: {speciality}</p>
+                        <p>Room Number: {room} {time}</p>
                         <button onClick={logout}>Logout</button>
                     </div>
                 </div>
