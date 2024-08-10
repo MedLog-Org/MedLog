@@ -235,6 +235,35 @@ app.post('/doc/bookslot', async(req,res) => {
   }
 });
 
+
+app.post('/appointment/book', async (req,res) =>{
+  console.log(req.body);
+  try{
+    const slots = await slot_collection.find({speciality:req.body.speciality});
+    const availableSlots = [];
+    const slotTimeSet = new Set();
+
+    for (const slot of slots) {
+      const docId = slot.docId;
+      for (const timeSlot of slot.slots) {
+        if (!timeSlot.status) {
+          const slotTime = timeSlot.time;
+          if (!slotTimeSet.has(slotTime)) {
+            availableSlots.push({ slotTime, docId });
+            slotTimeSet.add(slotTime);
+          }
+        }
+      }
+    }
+    
+    res.send({ availableSlots });
+  }
+  catch(error){
+    console.log(error)
+    res.status(500).json({ message: 'Internal server error' });
+  }
+})
+
 app.get('/', async (req, res) => {
   try {
     if (req.session.loggedIn) {

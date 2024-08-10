@@ -1,6 +1,7 @@
 .appointments {
     margin: 0;
     padding: 0; /* Ensuring no default padding is applied */
+    align-items: center;
 }
 
 .title {
