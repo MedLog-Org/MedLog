@@ -1,15 +1,34 @@
 import '../../styles/User/List_Card.css'
-function List_Card(){
+import { useEffect, useState } from 'react';
+function List_Card({appointment}){
+    console.log(appointment);
+    const [name,setName] = useState('');
+    const [email,setEmail] = useState('');
+    const [phone,setPhone] = useState('');
+    const [slot,setSlot] = useState('');
+    const [room,setRoom] = useState('');
+    const [date,setDate] = useState('');
+
+    useEffect(()=>{
+        setName(appointment.doc_name);
+        setEmail(appointment.doc_email);
+        setPhone(appointment.doc_phone);
+        setSlot(appointment.slot);
+        setRoom(appointment.room_number);
+        const today = new Date();
+        setDate(today.toLocaleDateString());
+    })
+    
     return (
         <div className="user-appointment">
             <img src="/doc.png" alt="" />
             <div className="doc-data">
-                <p>Name: Dr. Vansh Gupta</p>
-                <p>Email: v.vansh@iitg.ac.in</p>
-                <p>Phone: 1234567890</p>
-                <p>Data: 01/01/2000</p>
-                <p>Slot Time: 4:00 - 4:15 PM</p>
-                <p>Room Number: G-101</p>
+                <p>Name: {name}</p>
+                <p>Email: {email}</p>
+                <p>Phone: {phone}</p>
+                <p>Date: {date}</p>
+                <p>Slot Time: {slot}</p>
+                <p>Room Number: {room}</p>
             </div>
         </div>
     )

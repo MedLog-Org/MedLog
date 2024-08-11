@@ -56,6 +56,7 @@ app.post('/login', async (req, res) => {
       dob:'',
       bloodGroup:'',
       photo:'',
+      appointments:[],
     };
     collection = user_collection;
   }
@@ -178,6 +179,7 @@ app.post('/slots',async( req, res) =>{
   }
 
 });
+// Fix it
 app.post('/doc/bookslot', async(req,res) => {
   console.log(req.body);
   try{      
@@ -195,8 +197,8 @@ app.post('/doc/bookslot', async(req,res) => {
 
       const data = {
         slotId:req.body.slotId,
-        speciality: req.body.speciality,
-        docId: req.body.docId,
+        docId:req.body.docId,
+        speciality:req.body.speciality,
         roomNumber: room,
         slots:[
           { time: "", status: false, patientId: "" },
@@ -217,6 +219,12 @@ app.post('/doc/bookslot', async(req,res) => {
       });
 
       console.log(data);
+      const slot = await slot_collection.findOneAndUpdate(
+        { docId: req.body.docId, slotId: req.body.slotId },
+        { $set: { roomNumber:room, slots:data.slots} },
+        { new: true }
+      );
+
       const doc = await doc_collection.findByIdAndUpdate(req.body.docId, {
         $set: {
           roomNumber:room,
@@ -224,10 +232,14 @@ app.post('/doc/bookslot', async(req,res) => {
         }
       }, { new: true });
 
-      const newSlot = new slot_collection(data);
-      newSlot.save();
-      res.json({ success:true, message: 'Slot Booked',newSlot});
-
+      if(slot){
+        res.json({ success:true, message: 'Slot Booked',slot});
+      }
+      else{
+        const newSlot = new slot_collection(data);
+        newSlot.save();
+        res.json({ success:true, message: 'Slot Booked',newSlot});
+      }
   }
   catch(error){
     console.log(error)
@@ -242,20 +254,21 @@ app.post('/appointment/book', async (req,res) =>{
     const slots = await slot_collection.find({speciality:req.body.speciality});
     const availableSlots = [];
     const slotTimeSet = new Set();
-
+    console.log("slots list",slots);
     for (const slot of slots) {
       const docId = slot.docId;
       for (const timeSlot of slot.slots) {
-        if (!timeSlot.status) {
+        if (!timeSlot.status) { 
           const slotTime = timeSlot.time;
           if (!slotTimeSet.has(slotTime)) {
+            console.log(slotTime,docId,timeSlot.status);
             availableSlots.push({ slotTime, docId });
             slotTimeSet.add(slotTime);
           }
         }
       }
     }
-    
+    console.log("slots :",availableSlots);
     res.send({ availableSlots });
   }
   catch(error){
@@ -263,7 +276,35 @@ app.post('/appointment/book', async (req,res) =>{
     res.status(500).json({ message: 'Internal server error' });
   }
 })
-
+app.post('/appointment/patient',async(req,res) =>{
+    console.log(req.body);
+    try{
+      const doc_slot = await slot_collection.findOneAndUpdate(
+        { docId: req.body.docId, 'slots.time': req.body.slotTime },
+        { $set: { 'slots.$.status': true, 'slots.$.patientId': req.session.userId} },
+        { new: true }
+      );
+      const doc_data = await doc_collection.findOne({_id:req.body.docId});
+      console.log("doc_slot",doc_data);
+      const patient_data = {
+          doc_name:doc_data.name,
+          doc_email:doc_data.email,
+          doc_phone:doc_data.phone,
+          slot:req.body.slotTime,
+          room_number:doc_data.roomNumber,
+      }
+      console.log("patient",patient_data);
+      const patient_appointment = await user_collection.findOne({_id:req.session.userId});
+      patient_appointment.appointments.push(patient_data);
+      patient_appointment.save();
+      console.log(patient_appointment);
+      res.send({success:true,doc_slot});
+    }
+    catch(error){
+      console.log(error)
+      res.status(500).json({ message: 'Internal server error' });
+    }
+});
 app.get('/', async (req, res) => {
   try {
     if (req.session.loggedIn) {

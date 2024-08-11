@@ -24,6 +24,16 @@ const userSchema = new mongoose.Schema({
     },
     photo:{
         type:String,
-    }
+    },
+    appointments:[
+        {
+            doc_name:{type:String},
+            doc_email:{type:String},
+            doc_phone:{type:String},
+            date:{type:String},
+            slot:{type:String},
+            room_number:{type:String},
+        }
+    ]
 })
 module.exports = mongoose.model('user',userSchema);

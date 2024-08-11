@@ -11,15 +11,24 @@ function PopCard({ availableSlots }) {
   console.log("firstList:",firstList);
   console.log("secondList:",secondList);
 
-  const bookslot = (docid) => {
-    console.log(docid);
+  const URL = "http://localhost:8000/";
+  
+  const bookslot = async (docId,slotTime) => {
+    const response = await fetch(`${URL}appointment/patient`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({docId,slotTime}),
+    });
+    const data = await response.json();
+    console.log(data);
   }
   return (
     <div className="popcard">
         <h3>Available Slots</h3>
         
         <ul>
-            {firstList.map((slot, index) => (<li key={index} onClick={()=> bookslot(slot.docId)}>{slot.slotTime}</li>))}
+            {firstList.map((slot, index) => (<li key={index} onClick={()=> bookslot(slot.docId,slot.slotTime)}>{slot.slotTime}</li>))}
         </ul>
 
         {secondList.length > 0 && (<ul>
