@@ -1,0 +1,53 @@
+.doc-appointment{
+    margin: 1vw;
+    padding: 2vw;
+    display: flex;
+    justify-content: left;
+    background-color: white;
+    border-radius: 20px;
+}
+.doc-appointment img{
+    width: 15vw;
+}
+.user-data{
+    margin-left: 1vw;
+}
+.user-data p{
+    margin: 10px;
+    font-size: 1rem;
+}
+
+.doc-list{
+    margin: 15vw 15vw 2vw 15vw;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+#doc-appointment{
+    color: #4274EA;
+    text-align: center;
+}
+@media only screen and (max-width: 600px) {
+    .doc-appointment{
+        border-radius: 10px;
+        width: 90%;
+    }
+    .doc-appointment img{
+        width: 30vw;
+        margin-right: 1vw;
+    }
+    .user-data{
+        margin: 2vw;
+    }
+    .user-data p{
+        margin: 5px;
+        font-size: 1rem;
+    }
+    .doc-list{
+        align-items: center;
+        margin: 25vw 5vw 2vw 1vw;
+    }
+    #doc-appointment{
+        font-size: 130%;
+    }
+}

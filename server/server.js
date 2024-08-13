@@ -70,6 +70,7 @@ app.post('/login', async (req, res) => {
       photo:'',
       roomNumber:'',
       slotId:'',
+      appointments:[],
     };
     collection = doc_collection;
   }
@@ -286,18 +287,31 @@ app.post('/appointment/patient',async(req,res) =>{
       );
       const doc_data = await doc_collection.findOne({_id:req.body.docId});
       console.log("doc_slot",doc_data);
-      const patient_data = {
+      const patient_data_slot = {
           doc_name:doc_data.name,
           doc_email:doc_data.email,
           doc_phone:doc_data.phone,
           slot:req.body.slotTime,
           room_number:doc_data.roomNumber,
       }
-      console.log("patient",patient_data);
+      console.log("patient",patient_data_slot);
       const patient_appointment = await user_collection.findOne({_id:req.session.userId});
-      patient_appointment.appointments.push(patient_data);
+      patient_appointment.appointments.push(patient_data_slot);
       patient_appointment.save();
       console.log(patient_appointment);
+
+      const doc_data_slot ={
+        user_name:patient_appointment.name,
+        user_email:patient_appointment.email,
+        slot:req.body.slotTime,
+        dob:patient_appointment.dob,
+        bloodGroup:patient_appointment.bloodGroup,
+      }
+      doc_data.appointments.push(doc_data_slot);
+      doc_data.save();
+
+      console.log(doc_data_slot);
+      
       res.send({success:true,doc_slot});
     }
     catch(error){

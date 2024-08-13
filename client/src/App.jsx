@@ -5,6 +5,7 @@ import Appointments from './assets/Appointments'
 import Dashboard from './assets/User/Dashboard'
 import Doc from './assets/Doc/Doc'
 import NotFound from './assets/NotFound'
+import Doc_appointment from './assets/Doc/Doc_appointment'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
@@ -14,10 +15,11 @@ function App() {
   const patient = <Dashboard></Dashboard>
   const doc = <Doc></Doc>
   const login = <Login></Login>
-
+  const docAppointment = <Doc_appointment></Doc_appointment>
   const [component,setComponent] = useState(null)
   const [isLogged, setIsLogged] = useState(false);
   const [path,setPath] = useState('');
+  const [appointmentType,setAppointmentType] = useState(login);
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -36,9 +38,11 @@ function App() {
           console.log(path)
           if(userType === 'patient'){
             setComponent(patient);
+            setAppointmentType(appointments)
           }
           else if(userType === 'doctor'){
             setComponent(doc);
+            setAppointmentType(docAppointment)
           }
           else{
             console.log(userType);
@@ -58,7 +62,7 @@ function App() {
         <Routes>
           <Route path='/' element={Home} />
           <Route path='/login' element={login} />
-          <Route path='/appointments' element={appointments} />
+          <Route path='/appointments' element={appointmentType} />
           {isLogged && <Route path={path} element={component} />}
           <Route path="*" element={<NotFound />} />
         </Routes>

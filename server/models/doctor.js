@@ -27,7 +27,16 @@ const docSchema = new mongoose.Schema({
     },
     roomNumber:{
         type:String,
-    }
+    },
+    appointments:[
+        {
+            user_name:{type:String},
+            user_email:{type:String},
+            slot:{type:String},
+            dob:{type:String},
+            bloodGroup:{type:String},
+        }
+    ]
 
 })
 module.exports = mongoose.model('doctor',docSchema);
