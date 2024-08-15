@@ -11,7 +11,7 @@ function Appointments() {
     const [availableSlots,setAvailableSlots] = useState(null);
 
     const handle_appointment = async (speciality)=>{
-        const response = await fetch(`${URL}appointment/book`,{
+        const response = await fetch(`${URL}appointment/slots`,{
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },

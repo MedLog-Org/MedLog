@@ -33,7 +33,7 @@ function Profile(){
             const DoctorData = {id,name,email,phone,speciality};
             console.log(DoctorData);
             
-            const response = await fetch(`${URL}doc/profile`, {
+            const response = await fetch(`${URL}profile/doc`, {
               method: 'POST',
               credentials: 'include',
               headers: { 'Content-Type': 'application/json' },

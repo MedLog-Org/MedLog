@@ -32,7 +32,7 @@ function Profile() {
     const UserData = {id,name,email,sex,dob,bloodGroup};
     console.log(UserData);
     
-    const response = await fetch(`${URL}user/profile`, {
+    const response = await fetch(`${URL}profile/user`, {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },

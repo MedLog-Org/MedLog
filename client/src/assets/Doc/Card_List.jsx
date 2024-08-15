@@ -6,7 +6,7 @@ function List({speciality,docId}){
     useEffect(() => {
         const fetchSLot = async () => {
             try {
-            const response = await fetch(`${URL}slots`, {
+            const response = await fetch(`${URL}slots/doc`, {
               method: 'POST',
               credentials: 'include',
               headers: { 'Content-Type': 'application/json' },
@@ -25,7 +25,7 @@ function List({speciality,docId}){
         }, []);
 
     const handleClick = async (slotId) => {
-        const response = await fetch(`${URL}doc/bookslot`, {
+        const response = await fetch(`${URL}slots/doc/bookslot`, {
           method: 'POST',
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },

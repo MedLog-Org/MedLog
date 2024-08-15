@@ -14,7 +14,7 @@ function PopCard({ availableSlots }) {
   const URL = "http://localhost:8000/";
   
   const bookslot = async (docId,slotTime) => {
-    const response = await fetch(`${URL}appointment/patient`, {
+    const response = await fetch(`${URL}appointment/bookslot`, {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
