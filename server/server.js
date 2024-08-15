@@ -4,15 +4,11 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const MongoStore = require('connect-mongo');
-
-//  Routes
-const user_collection = require("./models/user");
-const doc_collection = require("./models/doctor");
 const loginRoutes = require('./routes/login')
 const profileRoutes = require('./routes/profile')
 const slotsRoutes = require('./routes/slots')
 const appointmentRoutes = require('./routes/appointments')
-
+const sessionRoutes = require('./routes/session')
 
 const app = express();
 
@@ -47,45 +43,12 @@ app.use(session({
     cookie: { secure: false, maxAge: 3600000, httpOnly: true},
 }));
 
-app.use(loginRoutes);       //  login/logout Routes
-app.use(profileRoutes);     //  profile doc/user Routes
+// Routes
+app.use(loginRoutes);       //  login/logout 
+app.use(profileRoutes);     //  profile doc/user
 app.use(slotsRoutes);       //  slots/doc /bookslot
 app.use(appointmentRoutes)  //  appointment slots/bookslot
-
-app.get('/', async (req, res) => {
-    try {
-        if (req.session.loggedIn) {
-          console.log(req.session);
-          let collection;
-          if(req.session.userType=='patient')
-            collection=user_collection;
-          else if(req.session.userType=='doctor')
-            collection=doc_collection;
-          else
-            console.log(req.session.userType);
-
-          const user = await collection.findOne({ _id: req.session.userId });
-          console.log(user);
-          res.json({
-            isLoggedIn: true,
-            user: user
-          });
-      } 
-      else {
-          res.json({
-            isLoggedIn: false,
-            message: "User is not logged in"
-          });
-      }
-    } 
-    catch(error){
-        console.error('Error fetching user:', error);
-        res.status(500).json({
-            success: false,
-            message: "Internal Server Error"
-        });
-    }
-});
+app.use(sessionRoutes)      //  Session
 
 app.listen(PORT, () => {
     console.log(`App is listening on http://localhost:${PORT}`);
