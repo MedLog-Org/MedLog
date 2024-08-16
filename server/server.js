@@ -12,11 +12,20 @@ const sessionRoutes = require('./routes/session')
 
 const app = express();
 
+const allowedOrigins = ['http://localhost:5173', 'https://med-log.vercel.app']; 
+
 app.use(cors({
-    origin: '*',
-    // origin: 'https://med-log.vercel.app',
-    credentials:true
+    origin: function(origin, callback) {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            return callback(null, true);
+        } else {
+            return callback(new Error('Origin not allowed by CORS'));
+        }
+    },
+    credentials: true
 }));
+
 app.use(bodyParser.json());
 const PORT = 8000;
 
