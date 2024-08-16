@@ -13,8 +13,8 @@ const sessionRoutes = require('./routes/session')
 const app = express();
 
 app.use(cors({
-    // origin: 'http://localhost:5173',
-    origin: 'https://med-log.vercel.app',
+    origin: '*',
+    // origin: 'https://med-log.vercel.app',
     credentials:true
 }));
 app.use(bodyParser.json());
