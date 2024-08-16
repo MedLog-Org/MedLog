@@ -6,7 +6,6 @@ const doc_collection = require("../models/doctor");
 router.get('/', async (req, res) => {
     try {
         if(req.session.loggedIn){
-            console.log(req.session);
             let collection;
             if(req.session.userType=='patient')
               collection=user_collection;
@@ -16,25 +15,18 @@ router.get('/', async (req, res) => {
               console.log(req.session.userType);
 
             const user = await collection.findOne({ _id: req.session.userId });
-            console.log(user);
             res.json({
               isLoggedIn: true,
               user: user
             });
         } 
         else{
-            res.json({
-              isLoggedIn: false,
-              message: "User is not logged in"
-            });
+            res.json({isLoggedIn: false,message: "User is not logged in"});
         } 
     } 
     catch(error){
         console.error('Error fetching user:', error);
-        res.status(500).json({
-            success: false,
-            message: "Internal Server Error"
-        });
+        res.status(500).json({success: false,message: "Internal Server Error"});
     }
 });
 

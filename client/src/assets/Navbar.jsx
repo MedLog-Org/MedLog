@@ -2,25 +2,25 @@ import '../styles/Navbar.css';
 import { Link } from 'react-router-dom';
 import React from 'react';
 import { useState,useEffect } from 'react';
+import { server_URL } from '../var'
 function Navbar() {
     const [isLoggedIn,setisLoggedIn] = useState(false);
     const [path,setPath] = useState('');
     useEffect(() => {
     const fetchUser = async () => {
         try {
-        const URL = "http://localhost:8000/";
-        const response = await fetch(`${URL}`, {
-            method: 'GET',
-            credentials: 'include',
-        });
-        const result = await response.json();
-        console.log(result);
-        setisLoggedIn(result.isLoggedIn)
-        const str = `/dashboard/${result.user._id}`;
-        setPath(str);
-        console.log(path)
-        } catch (err) {
-        console.error(err);
+          const response = await fetch(`${server_URL}`, {
+              method: 'GET',
+              credentials: 'include',
+          });
+          const result = await response.json();
+          setisLoggedIn(result.isLoggedIn)
+         
+          const str = `/dashboard/${result.user._id}`;
+          setPath(str);
+        } 
+        catch (err) {
+          console.error(err);
         }
     };
     fetchUser();

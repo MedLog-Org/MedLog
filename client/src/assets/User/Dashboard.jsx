@@ -6,7 +6,7 @@ import Records from './Records';
 import Footer from '../Footer';
 import { useState,useEffect } from 'react';
 import {useNavigate } from 'react-router-dom';
-
+import { server_URL } from '../../var'
 
 function Dashboard() {
   const [selectedComponent, setSelectedComponent] = useState('Profile');
@@ -19,21 +19,20 @@ function Dashboard() {
   useEffect(() => {
     const fetchUser = async () => {
         try {
-        const URL = "http://localhost:8000/";
-        const response = await fetch(`${URL}`, {
-            method: 'GET',
-            credentials: 'include',
-        });
-        const result = await response.json();
-        console.log(result.user);
-        const user = result.user;
-        setName(user.name);
-        setEmail(user.email);
-        setSex(user.sex);
-        setDOB(user.dob);
-        setBloodGroup(user.bloodGroup);      
-        } catch (err) {
-        console.error(err);
+          const response = await fetch(`${server_URL}`, {
+              method: 'GET',
+              credentials: 'include',
+          });
+          const result = await response.json();
+          const user = result.user;
+          setName(user.name);
+          setEmail(user.email);
+          setSex(user.sex);
+          setDOB(user.dob);
+          setBloodGroup(user.bloodGroup);      
+        } 
+        catch (err) {
+          console.error(err);
         }
     };
     fetchUser();
@@ -41,7 +40,7 @@ function Dashboard() {
   
     const logout = async () => {
       try {
-        const response = await fetch('http://localhost:8000/logout', {
+        const response = await fetch(`${server_URL}logout`, {
           method: 'POST',
           credentials: 'include'
         });

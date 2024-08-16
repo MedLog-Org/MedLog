@@ -2,24 +2,24 @@ import Doc_lists from "./Doc_lists";
 import '../../styles/User/DocList.css'
 import Navbar from "../Navbar";
 import { useEffect, useState } from "react";
+import { server_URL } from '../../var'
+
 function Doc_appointment(){
     const [appointments,setAppointments]= useState([]);
-    const URL = "http://localhost:8000/";
     useEffect(() => {
         const fetchUser = async () => {
             try {
-            const response = await fetch(`${URL}`, {
-                method: 'GET',
-                credentials: 'include',
-            });
-            const result = await response.json();
-            const doc = result.user;
-            console.log(doc.appointments);
-            setAppointments(doc.appointments);
-            console.log(appointments);
+                const response = await fetch(`${server_URL}`, {
+                    method: 'GET',
+                    credentials: 'include',
+                });
+                const result = await response.json();
+                const doc = result.user;   
+                setAppointments(doc.appointments);
 
-            } catch (err) {
-            console.error(err);
+            } 
+            catch (err) {
+                console.error(err);
             }
         };
         fetchUser();

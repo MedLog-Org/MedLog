@@ -1,5 +1,6 @@
 import { useState,useEffect} from 'react';
 import '../../styles/User/Profile.css';
+import { server_URL } from '../../var'
 function Profile() {
   
   const [name, setName] = useState('');
@@ -8,20 +9,20 @@ function Profile() {
   const [dob, setDob] = useState('');
   const [bloodGroup, setBloodGroup] = useState('');
   const [id, setid] =useState('');
-  const URL = "http://localhost:8000/";
+
   useEffect(() => {
     const fetchUser = async () => {
         try {
-        const response = await fetch(`${URL}`, {
-            method: 'GET',
-            credentials: 'include',
-        });
-        const result = await response.json();
-        const user = result.user;
-        setid(user._id);
-        console.log(id);
-        } catch (err) {
-        console.error(err);
+          const response = await fetch(`${server_URL}`, {
+              method: 'GET',
+              credentials: 'include',
+          });
+          const result = await response.json();
+          const user = result.user;
+          setid(user._id);
+        } 
+        catch (err) {
+          console.error(err);
         }
     };
     fetchUser();
@@ -32,7 +33,7 @@ function Profile() {
     const UserData = {id,name,email,sex,dob,bloodGroup};
     console.log(UserData);
     
-    const response = await fetch(`${URL}profile/user`, {
+    const response = await fetch(`${server_URL}profile/user`, {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },

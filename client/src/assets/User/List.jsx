@@ -1,23 +1,22 @@
 import List_Card from "./List_Card";
 import { useEffect, useState } from "react";
+import { server_URL } from '../../var'
 function List(){
     const [appointments,setAppointments]= useState([]);
-    const URL = "http://localhost:8000/";
+
     useEffect(() => {
         const fetchUser = async () => {
             try {
-            const response = await fetch(`${URL}`, {
-                method: 'GET',
-                credentials: 'include',
-            });
-            const result = await response.json();
-            const user = result.user;
-            console.log(user.appointments);
-            setAppointments(user.appointments);
-            console.log(appointments);
-
-            } catch (err) {
-            console.error(err);
+                const response = await fetch(`${server_URL}`, {
+                    method: 'GET',
+                    credentials: 'include',
+                });
+                const result = await response.json();
+                const user = result.user;
+                setAppointments(user.appointments);
+            } 
+            catch (err) {
+                console.error(err);
             }
         };
         fetchUser();

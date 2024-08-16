@@ -2,9 +2,10 @@ import '../styles/Login.css';
 import Navbar from './Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
+import { server_URL } from '../var'
 
 function Login() {
-  const URL = "http://localhost:8000/";
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -15,32 +16,31 @@ function Login() {
   const handleLogin = async (event) => {
     event.preventDefault();
     const UserData = { email, password, userType };
-    console.log(UserData);
 
-    const response = await fetch(`${URL}login`, {
+    const response = await fetch(`${server_URL}login`, {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(UserData),
     });
     const data = await response.json();
-    console.log(data);
 
-    if (data.success) {
+    if(data.success){
       console.log(data.message);
       setEmail('');
       setPassword('');
       setMessage('');
 
       navigate('/');
-    } else {
+    } 
+    else{
       setPassword('');
       console.error('Error', data.error);
       setMessage('Wrong Password, try again!');
     }
   };
 
-  const handleUserTypeChange = (user) => { // More descriptive function name
+  const handleUserTypeChange = (user) => {
     setUserType(user)
   };
 
@@ -51,7 +51,7 @@ function Login() {
         <div className="cross">
           <Link to={'/'}><img src="/cross.png" alt="Close" /></Link>
         </div>
-        {!userType && ( // Check for userType instead of box
+        {!userType && ( 
           <>
             <p id='choose'>Login/Sign in as</p>
             <ul>

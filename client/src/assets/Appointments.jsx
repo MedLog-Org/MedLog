@@ -4,14 +4,13 @@ import '../styles/Appointments.css';
 import Footer from "./Footer";
 import PopCard from './PopCard';
 import { useState } from 'react';
-
+import { server_URL } from '../var'
 function Appointments() {
-    const URL = "http://localhost:8000/";
-
+    
     const [availableSlots,setAvailableSlots] = useState(null);
 
     const handle_appointment = async (speciality)=>{
-        const response = await fetch(`${URL}appointment/slots`,{
+        const response = await fetch(`${server_URL}appointment/slots`,{
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
@@ -19,7 +18,6 @@ function Appointments() {
         });
 
         const data = await response.json();
-        console.log(data);
         setAvailableSlots(data);
     }
 

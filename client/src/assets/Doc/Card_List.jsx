@@ -1,22 +1,22 @@
 import "../../styles/User/List_Card.css"
 import { useEffect,useState } from "react";
+import { server_URL } from '../../var'
+
 function List({speciality,docId}){
-    const URL = "http://localhost:8000/";
     const [slotId,setSlotId] = useState([]);
     useEffect(() => {
         const fetchSLot = async () => {
             try {
-            const response = await fetch(`${URL}slots/doc`, {
+            const response = await fetch(`${server_URL}slots/doc`, {
               method: 'POST',
               credentials: 'include',
               headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({speciality}),
             });
             const result = await response.json();
-            console.log(result.slotIds);
+  
             setSlotId(s=>[...s,result.slotIds]);
-            console.log(slotId);
-
+  
             } catch (err) {
                 console.error(err);
             }
@@ -25,7 +25,7 @@ function List({speciality,docId}){
         }, []);
 
     const handleClick = async (slotId) => {
-        const response = await fetch(`${URL}slots/doc/bookslot`, {
+        const response = await fetch(`${server_URL}slots/doc/bookslot`, {
           method: 'POST',
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },

@@ -2,9 +2,10 @@ import '../../styles/Dashboard.css'
 import Navbar from '../Navbar'
 import Profile from './Profile';
 import Card_List from './Card_List'
-
-import { useAsyncError, useNavigate } from 'react-router-dom';
+import { server_URL } from '../../var'
+import { useNavigate } from 'react-router-dom';
 import { useState,useEffect } from 'react';
+
 function Doc(){
     const [selectedComponent, setSelectedComponent] = useState('Profile');
     const [name,setName]=useState("");
@@ -18,29 +19,28 @@ function Doc(){
     useEffect(() => {
       const fetchUser = async () => {
           try {
-          const URL = "http://localhost:8000/";
-          const response = await fetch(`${URL}`, {
-              method: 'GET',
-              credentials: 'include',
-          });
-          const result = await response.json();
-          console.log(result.user);
-          const doctor = result.user;
-          setName(doctor.name);
-          setEmail(doctor.email);
-          setPhone(doctor.phone);
-          setSpeciality(doctor.speciality);  
-          setDocId(doctor._id);   
-          setRoom(doctor.roomNumber);
-          const slotId = doctor.slotId;
-          if(slotId=="1"){
-            setTime("[08 - 14]")
-          }
-          else if(slotId=="2"){
-            setTime("[14 - 20]");
-          }
-          } catch (err) {
-          console.error(err);
+            const response = await fetch(`${server_URL}`, {
+                method: 'GET',
+                credentials: 'include',
+            });
+            const result = await response.json();
+            const doctor = result.user;
+            setName(doctor.name);
+            setEmail(doctor.email);
+            setPhone(doctor.phone);
+            setSpeciality(doctor.speciality);  
+            setDocId(doctor._id);   
+            setRoom(doctor.roomNumber);
+            const slotId = doctor.slotId;
+            if(slotId=="1"){
+              setTime("[08 - 14]")
+            }
+            else if(slotId=="2"){
+              setTime("[14 - 20]");
+            }
+          } 
+          catch (err) {
+            console.error(err);
           }
       };
       fetchUser();
@@ -64,12 +64,11 @@ function Doc(){
     };
     const logout = async () => {
       try {
-        const response = await fetch('http://localhost:8000/logout', {
+        const response = await fetch(`${server_URL}logout`, {
           method: 'POST',
           credentials: 'include'
         });
         const data = await response.json();
-        console.log(data);
         if(data.success){
           navigate('/');
         }

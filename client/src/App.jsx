@@ -8,6 +8,7 @@ import NotFound from './assets/NotFound'
 import Doc_appointment from './assets/Doc/Doc_appointment'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { server_URL } from './var'
 
 function App() {
   const Home = <LandingPage></LandingPage>
@@ -20,22 +21,22 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [path,setPath] = useState('');
   const [appointmentType,setAppointmentType] = useState(login);
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const URL = "http://localhost:8000/";
-        const response = await fetch(`${URL}`, {
+        const response = await fetch(server_URL, {
           method: 'GET',
           credentials: 'include',
         });
         const result = await response.json();
-        console.log(result);
+
         if(result.isLoggedIn){
           const userType = result.user.userType;
           setIsLogged(true);
           const str = `/dashboard/${result.user._id}`;
           setPath(str);
-          console.log(path)
+          
           if(userType === 'patient'){
             setComponent(patient);
             setAppointmentType(appointments)

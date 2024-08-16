@@ -1,7 +1,6 @@
 import '../../styles/User/DocList.css'
 import { useEffect, useState } from 'react';
 function Doc_lists({appointment}){
-    console.log(appointment);
     const [name,setName] = useState('');
     const [email,setEmail] = useState('');
     const [dob,setDOB] = useState('');

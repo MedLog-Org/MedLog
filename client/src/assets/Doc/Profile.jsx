@@ -1,27 +1,27 @@
 import '../../styles/User/Profile.css'
 import { useState,useEffect} from 'react';
+import { server_URL } from '../../var'
+
 function Profile(){
     const [name,setName]=useState("");
     const [email, setEmail] = useState('');
     const [phone,setPhone]=useState('');
     const [speciality,setSpeciality]=useState('');
     const [id, setid] =useState('');
-    const URL = "http://localhost:8000/";
-
-
+  
     useEffect(() => {
         const fetchDoctor = async () => {
             try {
-            const response = await fetch(`${URL}`, {
-                method: 'GET',
-                credentials: 'include',
-            });
-            const result = await response.json();
-            const doctor = result.user;
-            setid(doctor._id);
-            console.log(id);
-            } catch (err) {
-            console.error(err);
+              const response = await fetch(`${server_URL}`, {
+                  method: 'GET',
+                  credentials: 'include',
+              });
+              const result = await response.json();
+              const doctor = result.user;
+              setid(doctor._id);
+            } 
+            catch (err) {
+              console.error(err);
             }
         };
         fetchDoctor();
@@ -31,16 +31,14 @@ function Profile(){
         const handleSave = async (event) => {
             event.preventDefault();
             const DoctorData = {id,name,email,phone,speciality};
-            console.log(DoctorData);
-            
-            const response = await fetch(`${URL}profile/doc`, {
+        
+            const response = await fetch(`${server_URL}profile/doc`, {
               method: 'POST',
               credentials: 'include',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(DoctorData),
             });
             const data = await response.json();
-            console.log(data);
         
             if (data.success) {
               console.log(data.message);
@@ -55,8 +53,7 @@ function Profile(){
               setMessage('try again!');
             }
           };
-
-
+          
     return (
         <div className="profile">
             <input type="text" placeholder='Name' value={name} onChange={(event)=>{setName(event.target.value)}}/>

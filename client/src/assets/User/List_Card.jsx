@@ -1,7 +1,8 @@
 import '../../styles/User/List_Card.css'
 import { useEffect, useState } from 'react';
+
 function List_Card({appointment}){
-    console.log(appointment);
+    
     const [name,setName] = useState('');
     const [email,setEmail] = useState('');
     const [phone,setPhone] = useState('');
