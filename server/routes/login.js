@@ -63,7 +63,62 @@ router.post('/login', async (req, res) => {
         return res.status(500).json({ success: false, message: 'Internal server error' });
     }
 });
-  
+router.post('/google', async (req, res) => {
+    console.log('Email',req.body.goolgeId);
+    let data;
+    let collection;
+
+    if(req.body.userType=='patient'){
+        data = {
+            email: req.body.goolgeId,
+            password:'',
+            userType: req.body.userType,
+            name:'',
+            sex:'',
+            dob:'',
+            bloodGroup:'',
+            photo:'',
+            appointments:[],
+        };
+        collection = user_collection;
+    }
+    else if(req.body.userType == 'doctor'){
+        data = {
+            email: req.body.goolgeId,
+            password: '',
+            userType:req.body.userType,
+            phone:'',
+            speciality:'',
+            photo:'',
+            roomNumber:'',
+            slotId:'',
+            appointments:[],
+        };
+        collection = doc_collection;
+    }
+    console.log(data);
+    try{
+        const user = await collection.findOne({ email: data.email });
+        if(user){
+            req.session.userId = user._id;
+            req.session.userType = user.userType;
+            req.session.loggedIn = true;
+            res.json({ success: true, message: "Successfully Login"});
+        } 
+        else{
+            const newUser = new collection(data);
+            await newUser.save();
+            req.session.userId = newUser._id;
+            req.session.userType = newUser.userType;
+            req.session.loggedIn = true;
+            res.json({ success: true, message: "New User Registered and Logged In"});
+        }
+    } 
+    catch(error){
+        console.error('Error during login:', error);
+        return res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+});
 router.post('/logout', async (req, res) => {
     try{
         req.session.destroy();

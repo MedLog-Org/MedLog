@@ -16,7 +16,8 @@ function Navbar() {
           const result = await response.json();
           setisLoggedIn(result.isLoggedIn)
          
-          const str = `/dashboard/${result.user._id}`;
+          // const str = `/dashboard/${result.user._id}`;
+          const str = '/dashboard';
           setPath(str);
         } 
         catch (err) {

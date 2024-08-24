@@ -15,14 +15,7 @@ const app = express();
 const allowedOrigins = ['http://localhost:5173', 'https://med-log.vercel.app']; 
 
 app.use(cors({
-    origin: function(origin, callback) {
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) !== -1) {
-            return callback(null, true);
-        } else {
-            return callback(new Error('Origin not allowed by CORS'));
-        }
-    },
+    origin:'http://localhost:5173',
     credentials: true
 }));
 
@@ -31,7 +24,7 @@ const PORT = 8000;
 
 require('dotenv').config();
 // const URI = process.env.Local_URI;
-const URI = process.env.DB_URI;
+const URI = process.env.Local_URI;
 
 mongoose.connect(URI)
   .then(() => {

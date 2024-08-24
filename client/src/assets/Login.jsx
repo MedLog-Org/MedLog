@@ -4,6 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { server_URL } from '../var'
 
+import { auth } from '../config';
+import { getAuth, GoogleAuthProvider,signInWithPopup } from 'firebase/auth';
+
 function Login() {
 
   const [email, setEmail] = useState('');
@@ -12,6 +15,7 @@ function Login() {
   const [userType, setUserType] =useState('');
 
   const navigate = useNavigate();
+  const auth = getAuth();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -44,6 +48,37 @@ function Login() {
     setUserType(user)
   };
 
+
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider(auth);
+    try{
+      const result = await signInWithPopup(auth,provider);
+      const user = result.user;
+      console.log('User logged in with Google:', user);
+
+      const goolgeId = user.email;
+      const UserData = { goolgeId, userType };
+      const response = await fetch(`${server_URL}google`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(UserData),
+      });
+      const data = await response.json();
+      console.log(data);
+      if(data.success){
+        console.log(data.message);
+        navigate('/');
+      } 
+      else{
+        console.error('Error', data.error);
+      }
+    } 
+    catch (error){
+      console.log(error);
+    }
+  };
+
   return (
     <div className="Login">
       <Navbar />
@@ -73,7 +108,7 @@ function Login() {
 
             <div className="google">
               <img src="/google.png" alt="" />
-              <p>Login with Google</p>
+              <p onClick={handleGoogleLogin}>Login with Google</p>
             </div>
           </>
         )}

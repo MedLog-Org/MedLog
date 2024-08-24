@@ -34,7 +34,8 @@ function App() {
         if(result.isLoggedIn){
           const userType = result.user.userType;
           setIsLogged(true);
-          const str = `/dashboard/${result.user._id}`;
+          // const str = `/dashboard/${result.user._id}`;
+          const str = '/dashboard';
           setPath(str);
           
           if(userType === 'patient'){
