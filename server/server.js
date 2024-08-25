@@ -23,8 +23,8 @@ app.use(bodyParser.json());
 const PORT = 8000;
 
 require('dotenv').config();
-// const URI = process.env.Local_URI;
-const URI = process.env.DB_URI;
+const URI = process.env.Local_URI;
+// const URI = process.env.DB_URI;
 
 mongoose.connect(URI)
   .then(() => {
@@ -44,7 +44,7 @@ app.use(session({
     store: store,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: true, maxAge: 3600000, httpOnly: true},
+    cookie: { secure: false, maxAge: 3600000, httpOnly: true},
 }));
 
 // Routes
