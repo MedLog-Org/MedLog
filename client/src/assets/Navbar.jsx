@@ -14,6 +14,7 @@ function Navbar() {
               credentials: 'include',
           });
           const result = await response.json();
+          console.log(result);
           setisLoggedIn(result.isLoggedIn)
          
           // const str = `/dashboard/${result.user._id}`;

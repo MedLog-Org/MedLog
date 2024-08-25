@@ -4,6 +4,7 @@ const user_collection = require("../models/user");
 const doc_collection = require("../models/doctor");
 
 router.get('/', async (req, res) => {
+  console.log(req.session);
     try {
         if(req.session.loggedIn){
             let collection;
