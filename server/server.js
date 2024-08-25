@@ -44,7 +44,7 @@ app.use(session({
     store: store,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false, maxAge: 3600000, httpOnly: true},
+    cookie: { secure: true, maxAge: 3600000, httpOnly: true},
 }));
 
 // Routes
