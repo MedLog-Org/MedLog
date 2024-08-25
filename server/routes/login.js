@@ -38,6 +38,7 @@ router.post('/login', async (req, res) => {
   
     try{
         const user = await collection.findOne({ email: data.email });
+        console.log(user);
         if(user){
             if(user.password === data.password){
                 req.session.userId = user._id;
@@ -100,6 +101,7 @@ router.post('/google', async (req, res) => {
     console.log(data);
     try{
         const user = await collection.findOne({ email: data.email });
+        console.log(user);
         if(user){
             req.session.userId = user._id;
             req.session.userType = user.userType;

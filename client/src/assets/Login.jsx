@@ -28,7 +28,7 @@ function Login() {
       body: JSON.stringify(UserData),
     });
     const data = await response.json();
-
+    console.log(data);
     if(data.success){
       console.log(data.message);
       setEmail('');
