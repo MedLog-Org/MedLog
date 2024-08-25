@@ -24,7 +24,7 @@ const PORT = 8000;
 
 require('dotenv').config();
 // const URI = process.env.Local_URI;
-const URI = process.env.Local_URI;
+const URI = process.env.DB_URI;
 
 mongoose.connect(URI)
   .then(() => {
