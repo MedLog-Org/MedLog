@@ -19,6 +19,7 @@ router.get('/', async (req, res) => {
               isLoggedIn: true,
               user: user
             });
+            console.log(user);
         } 
         else{
             res.json({isLoggedIn: false,message: "User is not logged in"});
