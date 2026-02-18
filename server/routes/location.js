@@ -13,19 +13,6 @@ router.post('/location', async (req, res) => {
 
         console.log("Received IP:", ip_address);
 
-        // 🔎 Check if already exists
-        const existing = await ip_collection.findOne({ ip_address });
-
-        if (existing) {
-            console.log("IP already exists in DB:", ip_address);  
-            return res.status(200).json({
-                message: "IP already stored",
-                data: existing
-            });
-        }
-
-
-        // 🌍 Call API
         const geoResponse = await axios.get(
             `http://ip-api.com/json/${ip_address}`
         );
@@ -38,7 +25,6 @@ router.post('/location', async (req, res) => {
             return res.status(400).json({ message: "Invalid IP" });
         }
 
-        // 💾 Save everything
         const new_ip = new ip_collection({
             ip_address,
             ...geoData

@@ -4,7 +4,6 @@ const ipSchema = new mongoose.Schema({
     ip_address: {
         type: String,
         required: true,
-        unique: true
     },
     status: String,
     country: String,
