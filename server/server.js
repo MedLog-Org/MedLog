@@ -15,10 +15,7 @@ const app = express();
 
 const allowedOrigins = ['http://localhost:5173', 'https://med-log.vercel.app']; 
 
-app.use(cors({
-    origin:'http://localhost:5173',
-    credentials: true
-}));
+app.use(cors({origin: '*'}));
 
 app.use(bodyParser.json());
 const PORT = 8000;
