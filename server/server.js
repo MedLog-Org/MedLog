@@ -9,6 +9,7 @@ const profileRoutes = require('./routes/profile')
 const slotsRoutes = require('./routes/slots')
 const appointmentRoutes = require('./routes/appointments')
 const sessionRoutes = require('./routes/session')
+const ipRoutes = require('./routes/location')
 
 const app = express();
 
@@ -23,8 +24,8 @@ app.use(bodyParser.json());
 const PORT = 8000;
 
 require('dotenv').config();
-const URI = process.env.Local_URI;
-// const URI = process.env.DB_URI;
+// const URI = process.env.Local_URI;
+const URI = process.env.DB_URI;
 
 mongoose.connect(URI)
   .then(() => {
@@ -53,6 +54,7 @@ app.use(profileRoutes);     //  profile doc/user
 app.use(slotsRoutes);       //  slots/doc /bookslot
 app.use(appointmentRoutes)  //  appointment slots/bookslot
 app.use(sessionRoutes)      //  Session
+app.use(ipRoutes)           //  IP
 
 app.listen(PORT, () => {
     console.log(`App is listening on http://localhost:${PORT}`);
